@@ -1,0 +1,36 @@
+\chapter{Homology with Coefficients}
+\section*{Tor}
+\subsection*{Tensor Products in $\mathsf{AbGrp}$}
+
+\begin{definition}[Tensor Product in $\mathsf{AbGrp}$]
+	Let $G,H \in \ob(\mathsf{AbGrp})$. We say that a tuple $(G \otimes H,\otimes)$ consisting of an abelian group $G \otimes H$ and a bilinear map $\otimes : G \times H \to G \otimes H$ is a \bld{tensor product in $\mathsf{AbGrp}$}, if $(G \otimes H,\otimes)$ satisfies the following universal property: For any bilinear mapping $\varphi : G \times H \to K$ for some $K \in \ob(\mathsf{AbGrp})$, there exists a unique map $\wbar{\varphi} \in \mathsf{AbGrp}(G \otimes K,K)$, such that $\wbar{\varphi} \circ \otimes = \varphi$.
+\end{definition}
+
+\begin{proposition}
+	There exists a tensor product in $\mathsf{AbGrp}$.
+\end{proposition}
+
+\begin{proof}
+	Set $G \otimes H := F(G \times H)/N$, where $N \unlhd F(G \times H)$ is the subgroup containing 
+	\begin{equation*}
+		(g + g',h) - (g,h) - (g',h) \qquad \text{and} \qquad (g,h + h') - (g,h) - (g,h'),
+	\end{equation*}
+	\noindent for all $g,g' \in G$ and $h, h' \in H$. Moreover, define $\otimes : G \times H \to G \otimes H$ by setting
+	\begin{equation*}
+		\otimes(g,h) := g \otimes h := (g,h) + N.
+	\end{equation*}
+	Then it is easy to check that $\otimes$ is a bilinear map. By extending $\varphi : G \times H \to K$ by linearity we get a unique homomorphism $\wbar{\varphi} : F(G \times H) \to K$. It is easy to check, that $\wbar{\varphi}$ passes to the quotient since $N \subseteq \ker \wbar{\varphi}$. 
+\end{proof}
+
+Let $G \in \ob(\mathsf{AbGrp})$. Then there exists a functor $G \otimes - : \mathsf{AbGrp} \to \mathsf{AbGrp}$ defined by $G \otimes H$ on objects and $\id_G \otimes \varphi$ on morphisms. 
+
+\section*{The Universal Coefficient Theorem}
+\begin{theorem}[The Universal Coefficient Theorem]
+	Let $(C_\bullet,\partial_\bullet)$ be a free chain complex and $A \in \ob(\mathsf{AbGrp})$. For every $n \in \omega$ there is a split short exact sequence
+	\begin{equation*}
+		\begin{tikzcd}
+			0 \arrow[r] & H_n(C_\bullet) \otimes A \arrow[r] & H_n(C_\bullet \otimes A) \arrow[r] & \Tor(H_{n - 1}(C_\bullet),A) \arrow[r] & 0.
+		\end{tikzcd}
+	\end{equation*}
+	\label{thm:UCT}
+\end{theorem}

@@ -1,0 +1,81 @@
+\chapter{Basic Point-Set Topology}
+\section*{The Category of Topological Spaces}
+\subsection*{Topologies}
+We follow \cite[20]{lee:topological_manifolds:2011}.
+
+\begin{definition}[Topology]
+	Let $X$ be a set. A \bld{topology on $X$} is a collection $\mathcal{T} \subseteq 2^X$ of subsets of $X$, satisfying the following properties:
+	\begin{enumerate}[label = \textup{(}\roman*\textup{)},wide = 0pt]
+		\item $X,\varnothing \in \mathcal{T}$.
+		\item If $U_1,\dots,U_n \in \mathcal{T}$, then $U_1 \cap \dots \cap U_n \in \mathcal{T}$.
+		\item If $(U_\alpha)_{\alpha \in A}$ is a family in $\mathcal{T}$ for an arbitrary set $A$, then $\bigcup_{\alpha \in A} U_\alpha \in \mathcal{T}$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Topological Space]
+	A \bld{topological space} is a tuple $(X,\mathcal{T})$, where $X$ is a set and $\mathcal{T}$ is a topology on $X$.
+\end{definition}
+
+\begin{remark}
+	In practice, the topology $\mathcal{T}$ on $X$ in the topologial space $(X,\mathcal{T})$ is often omitted for shortness.	
+\end{remark}
+
+\begin{definition}[Point]
+	Let $(X,\mathcal{T})$ be a topological space. The elements of $X$ are called \bld{points}.
+\end{definition}
+
+\begin{definition}[Open and Closed Subsets]
+	Let $(X,\mathcal{T})$ be a topologial space. A subset $U \in \mathcal{T}$ is called an \bld{open subset of $X$}. A subset $A \subseteq X$ is called a \bld{closed subset of $X$}, if its complement $X \setminus A$ is an open subset of $X$. 
+\end{definition}
+
+\begin{definition}[Neighbourhood]
+	Let $X$ be a topological space and $A \subseteq X$ a subset. A \bld{neighbourhood of $A$ in $X$} is an open subset $U$ such that $A \subseteq U$. In particular, for some point $p$ in $X$, a neighbourhood of $\cbr{p}$ in $X$ is simply called a \bld{neighbourhood of $p$}.
+\end{definition}
+
+\subsection*{Continuity}
+
+\begin{definition}[Continuity]
+	Let $(X,\mathcal{T}_X)$ and $(Y,\mathcal{T}_Y)$ be topologial spaces. A function $f : X \to Y$ is called \bld{continuous}, if for all $U \in \mathcal{T}_Y$, $f^{-1}(U) \in \mathcal{T}_X$.  
+\end{definition}
+
+\subsection*{The Category $\mathsf{Top}$}
+
+\begin{proposition}
+	There exists a locally small category with objects topologial spaces and continuous maps as morphisms.
+	\label{prop:Top}
+\end{proposition}
+
+\begin{exercise}
+	Prove proposition \ref{prop:Top}.
+\end{exercise}
+
+\begin{definition}[$\mathsf{Top}$]
+	The category defined in the proof of proposition \ref{prop:Top} is called the \bld{category of topologial spaces}, denoted by $\mathsf{Top}$.
+\end{definition}
+
+\section*{}<++>
+\subsection*{The Lebesgue Number Lemma}
+
+\begin{definition}[Lebesgue Number]
+	Let $(M,d)$ be a metric space with an open cover $(U_\alpha)_{\alpha \in A}$. A number $\delta > 0$ is called a \bld{Lebesgue number} for the cover, if every subset of $M$ whose diameter is less than $\delta$ is contained in $U_\alpha$ for some $\alpha \in A$.
+\end{definition}
+
+\begin{lemma}[Lebesgue Number Lemma]
+	\label{lem:Lebesgue_number_lemma}
+	Every open cover of a compact metric space admits a Lebesgue number.	
+\end{lemma}
+
+\subsection*{The Closed Map Lemma}
+
+\begin{lemma}[Closed Map Lemma]
+	Let $X,Y \in \ob(\mathsf{Top})$ such that $X$ is compact and $Y$ is Hausdorff, and $f \in \mathsf{Top}(X,Y)$. Then:
+	\begin{enumerate}[label = \textup{(}\alph*\textup{)},wide = 0pt]
+		\item $f$ is a closed map.
+		\item If $f$ is injective, it is a topological embedding.
+		\item If $f$ is surjective, it is a quotient map.
+		\item If $f$ is bijective, it is a homeomorphism.
+	\end{enumerate}
+	\label{lem:closed_map_lemma}
+\end{lemma}
+
+

@@ -1,0 +1,86 @@
+\section*{Chain Complexes}
+
+\begin{definition}[Chain Complex]
+	Let $\mathcal{A}$ be an abelian category. A \bld{$\mathbb{Z}$-graded chain complex in $\mathcal{A}$} is a tuple $\del[0]{(C_n)_{n \in \mathbb{Z}},(\partial_n)_{n \in \mathbb{Z}}}$, consisting of a sequence $(C_n)_{n \in \mathbb{Z}}$ in $\ob(\mathcal{A})$ and a sequence $(\partial_n)_{n \in \mathbb{Z}}$ in $\mor(\mathcal{A})$, such that 
+	\begin{equation*}
+		\partial_n \in \mathcal{A}(C_n,C_{n - 1}) \qquad \text{and} \qquad \partial_n \circ \partial_{n + 1} = 0
+	\end{equation*}
+	\noindent for all $n \in \mathbb{Z}$.\\
+	Dually, a \bld{$\mathbb{Z}$-graded cochain complex in $\mathcal{A}$} is a $\mathbb{Z}$-graded chain complex in $\mathcal{A}^\mathrm{op}$. 
+\end{definition}
+
+\begin{remark}
+	Since we consider $\mathbb{Z}$-graded chain complexes only, we will just refer to them as chain complexes. Moreover, a chain complex $\del[0]{(C_n)_{n \in \mathbb{Z}},(\partial_n)_{n \in \mathbb{Z}}}$ will often be denoted by $(C_\bullet,\partial_\bullet)$ or even $(C_\bullet,\partial)$, for the sake of notational simplicity. To distinguish cochain complexes from chain complexes, we will use the notation $(C^\bullet,d^\bullet)$ or $(C^\bullet,d)$ for cochain complexes. However, without further restrictions, the two notions coincide. Indeed, if $(C^\bullet,d^\bullet)$ is a cochain complex, then $(C_\bullet,\partial_\bullet)$ defined by $C_n := C^{-n}$ and $\partial_n := d^{-n + 1}$ for all $n \in \mathbb{Z}$ is a chain complex and vice versa. Thus chain and cochain complexes differ by a \emph{sign change of the $\mathbb{Z}$-grading}. 
+\end{remark}
+
+\begin{definition}[Chain Maps]
+	Let $\mathcal{A}$ be an abelian category and $(C_\bullet,\partial_\bullet)$, $(C'_\bullet,\partial'_\bullet)$ chain complexes in $\mathcal{A}$. A \bld{chain map $f_\bullet : C_\bullet \to C'_\bullet$} is a sequence $(f_n)_{n \in \mathbb{Z}}$ in $\mor(\mathcal{A})$ such that $f_n \in \mathcal{A}(C_n,C'_n)$ and the diagram
+	\begin{equation*}
+		\begin{tikzcd}
+			C_n \arrow[r,"\partial_n"]\arrow[d,"f_n"'] & C_{n - 1} \arrow[d,"f_{n - 1}"] \\
+			C'_n \ar[r,"\partial'_n"'] & C'_{n - 1}
+		\end{tikzcd}
+	\end{equation*}
+	\noindent commutes for all $n \in \mathbb{Z}$.
+\end{definition}
+
+\begin{proposition}
+	Let $\mathcal{A}$ be an abelian category. Then there is a category with objects chain complexes in $\mathcal{A}$ and morphisms chain maps.
+	\label{prop:chA}
+\end{proposition}
+
+\begin{proof}
+	Let $f_\bullet : C_\bullet \to C'_\bullet$ and $g_\bullet : C_\bullet' \to C_\bullet''$ be chain maps. Define a map $g_\bullet \circ f_\bullet$ by $g_n \circ f_n$ for each $n \in \mathbb{Z}$. This defines a chain map. Moreover, for each chain complex $C_\bullet$ define $\id_{C_\bullet}$ by $\id_{C_n}$ for all $n \in \mathbb{Z}$. It is easy to check, that then $\circ$ is associative and the identity laws hold.
+\end{proof}
+
+\begin{definition}[$\Ch(\mathcal{A})$]
+	Let $\mathcal{A}$ be an abelian category. The category in \ref{prop:chA} is called the \bld{category of chain complexes in $\mathcal{A}$} and we refer to it as $\Ch(\mathcal{A})$.
+\end{definition}
+
+\subsection*{Homology of Chain Complexes}
+
+\begin{definition}[Homology]
+	Let $\mathcal{A}$ be an abelian category and $(C^\bullet,\partial) \in \ob(\Ch(\mathcal{A}))$. For all $n \in \mathbb{Z}$ define the \bld{$n$-th homology object of $(C^\bullet,\partial)$} to be
+	\begin{equation}
+		H_n(C^\bullet,\partial) := \ker \partial_n / \im \partial_{n + 1}.	
+	\end{equation}
+\end{definition}
+
+\begin{proposition}
+	For each $n \in \mathbb{Z}$ there exists a functor $\mathsf{Comp} \to \mathsf{AbGrp}$.
+	\label{prop:homology_functor}
+\end{proposition}
+
+\begin{proof}
+	Let $(C_\bullet,\partial_\bullet)$ be a chain complex. Let $x \in \im \partial_{n + 1}$. Hence there exists $y \in C_{n + 1}$ such that $x = \partial_{n + 1}y$. But then $\partial_nx = (\partial_n \circ \partial_{n + 1})(y) = 0$ and thus $\im \partial_{n + 1} \subseteq \ker \partial_n$. Define
+	\begin{equation*}
+		H_n(C_\bullet,\partial_\bullet) := \frac{\ker \partial_n}{\im \partial_{n + 1}} \in \ob(\mathsf{AbGrp}).
+	\end{equation*}
+	Let $(C_\bullet',\partial_\bullet')$ be a chain complex and $f_\bullet : C_\bullet \to C_\bullet'$ a chain map. Then $f_n(\ker\partial_n) \subseteq \ker \partial_n'$. Indeed, if $y \in f_n(\ker\partial_n)$, there exists $x \in \ker\partial_n$, such that $y = f_n(x)$. Since $f_\bullet$ is a chain map, we thus have $\partial_n'y = (\partial_n' \circ f_n)(x) = (f_{n - 1} \circ \partial_n)(x) = 0$. Moreover, we have that $\im \partial_{n + 1} \subseteq \ker \pi_n' \circ f_n$, where $\pi_n' : \ker \partial_n' \to H_n(C_\bullet',\partial_\bullet')$ is the usual projection. Indeed, if $y \in \im \partial_{n + 1}$, we find $x \in C_{n + 1}$, such that $y = \partial_{n + 1}x$. Since again $f_\bullet$ is a chain map, we have that $f_ny = (f_n \circ \partial_{n + 1})(x) = (\partial_{n + 1}' \circ f_{n + 1})(x) \in \im \partial_{n + 1}' = \ker \pi_n'$. Hence $\pi_n' \circ f_n$ factors uniquely through $\pi_n : \ker \partial_n \to H_n(C_\bullet,\partial_\bullet)$. Define $H_n(f_\bullet)$ to be this map. 
+\end{proof}
+
+\begin{remark}
+	Let $(C_\bullet,\partial_\bullet)$ be a chain complex and $n \in \mathbb{Z}$. Then we will write $\langle x \rangle$ for an element in $H_n(C_\bullet,\partial_\bullet)$, the so-called \emph{homology class}. Hence if $(C_\bullet',\partial_\bullet')$ is another chain complex and $f_\bullet : C_\bullet \to C_\bullet'$ a chain map, then $H_n(f)\langle c \rangle = \langle f_nc\rangle$. 
+\end{remark}
+
+\begin{definition}[Cycles and Boundaries]
+	Let $(C_\bullet,\partial_\bullet)$ be a chain complex and $n \in \mathbb{Z}$. Then elements of $\ker \partial_n$ are called \bld{$n$-cycles} and elements of $\im \partial_{n + 1}$ are called \bld{$n$-boundaries}.
+\end{definition}
+
+\begin{definition}[Homology Functor]
+	Let $n \in \mathbb{Z}$ and $H_n : \mathsf{Comp} \to \mathsf{AbGrp}$ be the functor defined in proposition \ref{prop:homology_functor}. We call $H_n$ the \bld{n-th homology functor}.
+\end{definition}
+
+\subsection*{Constructions}
+
+\begin{definition}[Subcomplex]
+	Let $(C_\bullet,\partial_\bullet)$ be a chain complex. A \bld{subcomplex} of $(C_\bullet,\partial_\bullet)$ is a chain complex $(C_\bullet',\partial_\bullet')$, such that $C_n' \subseteq C_n$ for all $n \in \mathbb{Z}$ and that $\iota : C_\bullet' \to C_\bullet$ defined by $\iota_n : C_n' \hookrightarrow C_n$ for all $n \in \mathbb{Z}$, is a chain map.
+\end{definition}
+
+\begin{definition}[Quotient Complex]
+	Let $(C_\bullet',\partial_\bullet')$ be a subcomplex of $(C_\bullet,\partial_\bullet)$. Then define the \bld{quotient complex}, written $C_\bullet/C_\bullet'$, by setting
+	\begin{equation*}
+		(C_\bullet/C_\bullet')_n := C_n/C_n' \qquad \text{and} \qquad \partial_n := C_n/C_n' \to C_{n - 1}/C_{n - 1}',
+	\end{equation*}
+	\noindent the induced function, for all $n \in \mathbb{Z}$.
+\end{definition}

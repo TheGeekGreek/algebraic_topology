@@ -1,0 +1,469 @@
+\chapter{Basic Category Theory}
+\subsection*{Categories}
+
+We use the first order theory of Neumann-Bernays-G\"odel (BNG) as described in \cite[231]{mendelson:logic:2015}.
+
+\begin{definition}[Category]
+	A \bld{category $\mathcal{C}$} consists of 
+	\begin{itemize}[leftmargin = *]
+		\item A class $\ob(\mathcal{C})$, called the \bld{objects of $\mathcal{C}$}.
+		\item A class $\mor(\mathcal{C})$, called the \bld{morphisms of $\mathcal{C}$}.
+		\item Two functions $\dom : \mor(\mathcal{C}) \to \ob(\mathcal{C})$ and $\cod : \mor(\mathcal{C}) \to \ob(\mathcal{C})$, which assign to each morphism $f$ in $\mathcal{C}$ its \bld{domain} and \bld{codomain}, respectively.
+		\item For each $X \in \ob(\mathcal{C})$ a function $\ob(\mathcal{C}) \to \mor(\mathcal{C})$ which assigns a morphism $\id_X$ such that $\dom \id_X = \cod \id_X = X$.
+		\item A function 
+			\begin{equation}
+				\circ : \cbr{(g,f) \in \mor(\mathcal{C}) \times \mor(\mathcal{C}) : \dom g = \cod f} \to \mor(\mathcal{C}) 
+			\end{equation}
+			mapping $(g,f)$ to $g \circ f$, called \bld{composition}, such that $\dom(g \circ f) = \dom f$ and $\cod(g \circ f) = \cod g$.
+	\end{itemize}
+	Subject to the following axioms:
+	\begin{itemize}[leftmargin = *]
+		\item \bld{(Associativity Axiom)} For all $f,g,h \in \mor(\mathcal{C})$ with $\dom h = \cod g$ and $\dom g = \cod f$, we have that
+			\begin{equation}
+				(h \circ g) \circ f = h \circ (g \circ f).
+			\end{equation}
+		\item \bld{(Unit Axiom)} For all $f \in \mor(\mathcal{C})$ with $\dom f = X$ and $\cod f = Y$ we have that
+			\begin{equation}
+				f = f \circ \id_X = \id_Y \circ f.
+			\end{equation}
+	\end{itemize}
+\end{definition}
+
+\begin{remark}
+	Let $\mathcal{C}$ be a category. For $X,Y \in \ob(\mathcal{C})$ we will abreviate
+	\begin{equation*}
+		\mathcal{C}(X,Y) := \cbr{f \in \mor(\mathcal{C}) : \dom f = X \text{ and } \cod f = Y}.
+	\end{equation*}
+	Moreover, $f \in \mathcal{C}(X,Y)$ is depicted as
+	\begin{equation}
+		f : X \to Y.
+	\end{equation}
+\end{remark}
+
+\begin{example}
+	Let $\ast$ be a single, not nearer specified object. Consider as morphisms the class of all cardinal numbers and as composition cardinal addition. By \cite[112--113]{halbeisen:set_theory:2012}, cardinal addition is associative and $\varnothing$ serves for the identity $\id_\ast$.  
+\end{example}
+
+\begin{definition}[Locally Small, Hom-Set]
+	A category $\mathcal{C}$ is said to be \bld{locally small} if for all $X,Y \in \mathcal{C}$, $\mathcal{C}(X,Y)$ is a set. If $\mathcal{C}$ is locally small, $\mathcal{C}(X,Y)$ is called a \bld{hom-set} for all $X,Y \in \mathcal{C}$. 
+\end{definition}
+
+\begin{definition}[Isomorphism]
+	Let $\mathcal{C}$ be a category. An \bld{isomorphism in $\mathcal{C}$} is a morphism $f : X \to Y$ in $\mathcal{C}$, such that there exists a morphism $g : Y \to X$ in $\mathcal{C}$ with 
+	\begin{equation*}
+		g \circ f = \id_X \qquad \text{and} \qquad f \circ g = \id_Y.
+	\end{equation*}
+\end{definition}
+
+In algebraic topology, there is a very useful construction on categories.
+
+\begin{definition}[Congruence]
+	Let $\mathcal{C}$ be a category. A \bld{congruence on $\mathcal{C}$} is an equivalence relation $\sim$ on $\mor(\mathcal{C})$ such that 
+	\begin{enumerate}[label = \textup{(}\alph*\textup{)},wide = 0pt]
+		\item If $f \in \mathcal{C}(X,Y)$ and $f {\sim} g$, then $g \in \mathcal{C}(X,Y)$.
+		\item If $f_0 : X \to Y$ and $g_0 : Y \to Z$ such that $f_0 {\sim} f_1$ and $g_0 {\sim} g_1$, then $g_0 \circ f_0 {\sim} g_1 \circ f_1$.
+	\end{enumerate}
+\end{definition}
+
+\begin{exercise}
+	Let $\mathcal{C}$ be a category. Show that for any congruence on $\mathcal{C}$, there exists a category $\mathcal{C}'$, called \bld{quotient category}, with $\ob(\mathcal{C}') = \ob(\mathcal{C})$, for any objects $X,Y \in \mathcal{C}'$
+	\begin{equation*}
+		\mathcal{C}'(X,Y) = \cbr[0]{\sbr[0]{f} : f \in \mathcal{C}(X,Y)},
+	\end{equation*}
+	\noindent and pointwise composition.
+\end{exercise}
+
+\subsection*{Functors}
+
+\begin{definition}[Functor]
+	Let $\mathcal{C}$ and $\mathcal{D}$ be categories. A \bld{functor $F : \mathcal{C} \to \mathcal{D}$} is a pair of functions $(F_1,F_2)$, $F_1 : \ob(\mathcal{C}) \to \ob(\mathcal{D})$, called the \bld{object function} and $F_2 : \mor(\mathcal{C}) \to \mor(\mathcal{D})$, called the \bld{morphism function}, such that for every morphism $f : X \to Y$ we have that $F_2(f) : F_1(X) \to F_1(Y)$ and $(F_1,F_2)$ is subject to the following \bld{compatibility conditions}:
+	\begin{itemize}[leftmargin = *]
+		\item For all $X \in \ob(\mathcal{C})$, $F_2(\id_X) = \id_{F_1(X)}$.
+		\item For all $f \in \mathcal{C}(X,Y)$ and $g \in \mathcal{C}(Y,Z)$ we have that $F_2(g \circ f) = F_2(g) \circ F_2(f)$.
+	\end{itemize}
+\end{definition}
+
+\begin{remark}
+	Let $F : \mathcal{C} \to \mathcal{D}$ be a functor. It is convenient to denote the components $F_1$ and $F_2$ also with $F$.
+\end{remark}
+
+\subsection*{Subcategories}
+\begin{definition}[Subcategory]
+	Let $\mathcal{C}$ be a category. A \bld{subcategory $\mathcal{\altS}$ of $\mathcal{C}$} consists of
+	\begin{itemize}[leftmargin = *]
+		\item A subclass $\ob(\mathcal{\altS}) \subseteq \ob(\mathcal{C})$.
+		\item A subclass $\mor(\mathcal{\altS}) \subseteq \mor(\mathcal{C})$.
+	\end{itemize}
+	Subject to the following conditions:
+	\begin{itemize}[leftmargin = *]
+		\item For all $X \in \mathcal{\altS}$, $\id_S \in \mor(\mathcal{\altS})$.
+	\end{itemize}
+\end{definition}
+
+\begin{example}[$\mathsf{Top}^2$]
+	Define the objects of $\mathsf{Top}^2$ to be the class of tuple $(X,A)$, where $X \in \ob(\mathsf{Top})$ and $A$ is a subspace of $X$. Moreover, given objects $(X,A)$ and $(Y,B)$ in $\mathsf{Top}^2$, a morphism between $(X,A)$ and $(Y,B)$ is a tuple $(f,g)$, where $f \in \mathsf{Top}(X,Y)$ and $g \in \mathsf{Top}(A,B)$, such that 
+	\begin{equation*}
+		\begin{tikzcd}
+			A \arrow[r,hook]\arrow[d,"g"'] & X \arrow[d,"f"]\\
+			B \arrow[r,hook] & Y
+		\end{tikzcd}
+	\end{equation*}
+	\noindent commutes.
+\end{example}
+
+\begin{example}[$\mathsf{Top}_\ast$]
+	Define the objects of $\mathsf{Top}_\ast$ to be the class of all tuple $(X,p)$, where $X$ is a topological space and $p \in X$. Moreover, given objects $(X,p)$ and $(Y,q)$ in $\mathsf{Top}_\ast$, define $\mathsf{Top}_\ast\del[1]{(X,p),(Y,q)} := \cbr[0]{f \in \mathsf{Top}(X,Y) : f(p) = q}$. It is easy to check that $\mathsf{Top}_\ast$ is a category, called the \bld{category of pointed topological spaces}.
+
+\end{example}
+
+\subsection*{Limits}
+
+\begin{definition}[Diagram]
+	Let $\mathcal{C}$ be a category and $\mathsf{A}$ a small category. A functor $\mathsf{A} \to \mathcal{C}$ is called a \bld{diagram in $\mathcal{C}$ of shape $\mathsf{A}$}.
+\end{definition}
+
+\begin{definition}[Cone and Limit]
+	Let $\mathcal{C}$ be a category and $D : \mathsf{A} \to \mathcal{C}$ a diagram in $\mathcal{C}$ of shape $\mathsf{A}$. A \bld{cone on $D$} is a tuple $\del[1]{C,(f_\alpha)_{\alpha \in \mathsf{A}}}$, where $C \in \mathcal{C}$ is an object, called the \bld{vertex} of the cone, and a family of arrows in $\mathcal{C}$
+	\begin{equation}
+		\del[1]{C \xrightarrow{f_\alpha} D(\alpha)}_{\alpha \in \mathsf{A}}.
+	\end{equation}
+	\noindent such that for all morphisms $f \in \cat{A}$, $f : \alpha \to \beta$, the triangle
+	\begin{equation*}
+		\xymatrix{
+			& D(\alpha) \ar[dd]^{D(f)}\\
+			C \ar[ur]^{f_\alpha}\ar[dr]_{f_\beta}\\
+			& D(\beta)}
+	\end{equation*}
+	\noindent commutes. A \bld{(small) limit of $D$} is a cone $\del[1]{L, (\pi_\alpha)_{\alpha \in \mathsf{A}}}$ with the property that for any other cone $\del[1]{C,(f_\alpha)_{\alpha \in \mathsf{A}}}$ there exists a unique morphism $\wbar{f} : C \to L$ such that $\pi_\alpha \circ \wbar{f} = f_\alpha$ holds for every $\alpha \in \mathsf{A}$.
+	\label{def:limit}
+\end{definition}
+
+\begin{remark}
+	In the setting of definition \ref{def:limit}, if $\del[1]{L, (\pi_\alpha)_{\alpha \in \cat{A}}}$ is a limit of $D$, we sometimes reffering to $L$ only as the limit of $D$ and we write
+	\begin{equation}
+		L = \lim_{\leftarrow \mathsf{A}} D.
+	\end{equation}
+\end{remark}
+
+\subsection*{Filtered Colimits}
+\begin{definition}[Filtered Category]
+	A category $\mathcal{J}$ is \bld{filtered}, if $\mathcal{J}$ is not empty and
+	\begin{enumerate}[label = \textup{(}\alph*\textup{)},wide = 0pt]
+		\item To any two objects $j$ and $j'$ in $\mathcal{J}$ there exists $k \in \ob(\mathcal{J})$ and morphisms $j \to k$ and $j' \to k$.
+		\item To any two parallel arrows $u,v : i \to j$ in $\mathcal{J}$, there exists $k \in \ob(\mathcal{J})$ and a morphism $w : j \to k$ in $\mathcal{J}$, such that $w \circ u = w \circ v$.
+	\end{enumerate}
+\end{definition}
+
+\begin{definition}[Filtered Colimit]
+	Let $\mathcal{C}$ be a category. A \bld{filtered diagram in $\mathcal{C}$ of shape $\mathcal{J}$} is a diagram in $\mathcal{C}$ of shape $\mathcal{J}$, where $\mathcal{J}$ is a small filtered category. A \bld{filtered colimit of $D$} is a colimit of a filtered diagram $D$ in $\mathcal{C}$, written $\colim D$.
+\end{definition}
+
+\begin{proposition}
+	\label{prop:filtered_colimits_set}
+	In $\mathsf{Set}$, all filtered limits exist.
+\end{proposition}
+
+\begin{proof}
+	Let $D : \mathcal{J} \to \mathsf{Set}$ be a filtered diagram. Define
+	\begin{equation*}
+		X := \coprod_{j \in \ob(\mathcal{J})} D(j),
+	\end{equation*}
+	\noindent and define a relation $\sim$ on $X$ by
+	\begin{equation*}
+		x \in D(j)\sim y \in D(j') \> :\Leftrightarrow \> \exists f : j \to k,g : j' \to k \text{ such that } D(f)(x) = D(g)(y).
+	\end{equation*} 
+	Then it is easy to check that $\sim$ is an equivalence relation and that $\colim D \cong X/{\sim}$.
+\end{proof}
+
+\begin{proposition}
+	In $\mathsf{Top}$, all filtered colimits exist.
+\end{proposition}
+
+\begin{proof}
+	Let $D : \mathcal{J} \to \mathsf{Top}$ be a filtered diagram. If $U : \mathsf{Top} \to \mathsf{Set}$ denotes the forgetful functor, $U \circ D$ is a filtered diagram in $\mathsf{Set}$. Hence using proposition \ref{prop:filtered_colimits_set}, we know that $\colim (U \circ D)$ exists. Hence we get a limiting cocone $\del[1]{\colim (U \circ D),(q_j)_{j \in \ob(\mathcal{J})}}$ in $\mathsf{Set}$. Define a topology $\colim (U \circ D)$ by letting $U \subseteq \colim(U \circ D)$ to be open if and only if $q^{-1}_j(U)$ open in $U(D(j))$ for all $j \in \ob(\mathcal{J})$. Then it is easy to check that we have a limiting cocone in $\mathsf{Top}$.
+\end{proof}
+
+\begin{definition}[Preorder]
+	Let $P$ be a set. A \bld{preorder on $P$} is a reflexive and transitive binary relation $\preccurlyeq$ on $P$. A set equipped with a preorder is called a \bld{preordered set}.
+\end{definition}
+
+\begin{definition}[Directed Preorder]
+	A preorder $\preccurlyeq$ on a set $P$ is said to be \bld{directed} if for every two elements $p,q \in P$there exists $r \in P$, such that $p \preccurlyeq r$ and $q \preccurlyeq r$ holds. A set equipped with a directed preorder is called a \bld{directed set}. 
+\end{definition}
+
+\begin{lemma}
+	\label{lem:directed_preorder_filtered_category}
+	Let $(P,\preccurlyeq)$ be a directed set. Define 
+	\begin{itemize}[wide = 0pt]
+		\item $\ob(\mathcal{J}(P,\preccurlyeq)) := P$.
+		\item For $p,q \in P$, if $p \not\preccurlyeq q$ let $\mathcal{J}(P,\preccurlyeq)(p,q) := \varnothing$ and if $p \preccurlyeq q$ let $\mathcal{J}(P,\preccurlyeq)(p,q)$ be the unique arrow $p \to q$.
+		\item For $p,q,r \in P$, let $q \to r \circ p \to q := p \to r$.
+	\end{itemize}
+	Then $\mathcal{J}(P,\preccurlyeq)$ is a filtered category.
+\end{lemma}
+
+\begin{exercise}
+	Prove lemma \ref{lem:directed_preorder_filtered_category}.
+\end{exercise}
+
+\begin{definition}[Sequential Colimit]
+	A \bld{sequential colimit of $D$} is a colimit of a diagram $D$ of shape $(\omega,\leq)$. We will write $\colim_n D(n)$ for a sequential colimit of $D$.
+\end{definition}
+
+\section{Preadditive Catgeories}
+Let $G,H \in \ob(\mathsf{AbGrp})$ and $\varphi,\psi \in \mathsf{AbGrp}(G,H)$. Define $\varphi + \psi$ pointwise. Since $H$ is abelian, it follows that $\varphi + \psi \in \mathsf{AbGrp}(G,H)$. Moreover, it is easy to check, that with this operation defined above, $\mathsf{AbGrp}(G,H)$ is an abelian group and 
+\begin{equation*}
+	\circ : \mathsf{AbGrp}(H,K) \times \mathsf{AbGrp}(G,H) \to \mathsf{AbGrp}(G,K)
+\end{equation*}
+\noindent is bilinear for each $K \in \ob(\mathsf{AbGrp})$. This motivates the following definition. 
+
+\begin{definition}[Preadditive Category \cite{maclane:categories:1978}]
+	A \bld{preadditive category} is a locally small category $\mathcal{C}$ in which all hom-sets $\mathcal{C}(X,Y)$ can be equipped with the structure of an abelian group and composition is bilinear, i.e. for all mophisms $f,f' : X \to Y$ and $g,g' : Y \to Z$ in $\mathcal{C}$ we have that
+	\begin{equation}
+		(g + g') \circ (f + f') = g \circ f + g \circ f' + g' \circ f + g' \circ f'.
+	\end{equation}
+\end{definition}
+
+\begin{remark}
+	In a preadditive category $\mathcal{C}$, we have that $\mathcal{C}(X,Y) \neq \varnothing$ for all $X,Y \in \ob(\mathcal{C})$.
+\end{remark}
+
+\begin{lemma}
+	\label{lem:composition_zero}
+	Let $\mathcal{C}$ be a preadditive category. Then compositions with the zero elements are again zero elements of the correpsonding abelian groups.	
+\end{lemma}
+
+\begin{proof}
+	This simply follows from $0 \circ f = (0 + 0) \circ f = 0 \circ f + 0 \circ f$. The other case is similar.
+\end{proof}
+
+\section{Additive Categories}
+As in $\mathsf{Grp}$, the trivial group in $\mathsf{AbGrp}$ is both an initial and a terminal object. Objects with this property have a special name.
+
+\begin{definition}[Null Object \cite{maclane:categories:1978}]
+	Let $\mathcal{C}$ be a category. A \bld{null object in $\mathcal{C}$} is a an object of $\mathcal{C}$ which is both initial and terminal.
+\end{definition}
+
+\begin{definition}[Zero Arrow \cite{maclane:categories:1978}]
+	Let $\mathcal{C}$ be a category with a null object $0$. For $X,Y \in \ob(\mathcal{C})$, the unique composition $X \to 0 \to Y$ is called the \bld{zero arrow from $X$ to $Y$}, denoted by $0 : X \to Y$.
+\end{definition}
+
+\begin{lemma}
+	\label{lem:zero_arrow}
+	Let $\mathcal{C}$ be a preadditive category with null object and $X,Y \in \ob(\mathcal{C})$. Then the zero arrow $0 : X \to Y$ is the zero element of the group $\mathcal{C}(X,Y)$.
+\end{lemma}
+
+\begin{proof}
+	The zero arrow $0 : X \to Y$ is the unique composition
+	\begin{equation*}
+		\begin{tikzcd}
+			X \arrow[r] & 0 \arrow[r] & Y.
+		\end{tikzcd}
+	\end{equation*}
+	However, since $0$ is a null object, we have that the two morphisms are the two zero objects in the corresponding abelian group structures. Hence lemma \ref{lem:composition_zero} yields the result.
+\end{proof}
+
+Let $A,B \in \ob(\mathsf{AbGrp})$. Then we have seen that $A \coprod B \cong A \prod B$. This can be generalized to preadditive categories.
+
+\begin{proposition}
+	\label{prop:products_and_coproducts_coincide}
+	Let $\mathcal{C}$ be a preadditive category admitting all finite coproducts. Then any $n$-ary coproduct is also an $n$-ary product for all $n \in \omega$. In particular, $\mathcal{C}$ admits all finite products and a null object.
+\end{proposition}
+
+\begin{proof}
+	\begin{enumerate}[label = \textit{Step \arabic*:},wide = 0pt] 
+		\item \textit{Zero-ary case \textup{\cite[194]{maclane:categories:1978}}.} Since $\mathcal{C}$ has the empty coproduct, $\mathcal{C}$ has an initial object $\varnothing$. Since $\varnothing$ is initial, there exists a unique map $\varnothing \to \varnothing$, namely $\id_\varnothing$. But $\mathcal{C}(\varnothing,\varnothing)$ is a group and thus $\id_\varnothing = 0$. Hence for any morphism $f : X \to \varnothing$, lemma \ref{lem:composition_zero} yields $f = \id_\varnothing \circ f = 0 \circ f = 0$.
+		\item \textit{Binary case.} By the zero-ary case we know that $\mathcal{C}$ admits a null object $0$. Let $X,Y \in \ob(\mathcal{C})$. We want to show that $X \coprod Y$ is also a product of $X$ and $Y$. By the universal property of the coproduct we have a commutative diagram
+			\begin{equation*}
+				\begin{tikzcd}[column sep=10ex,row sep=5ex]
+					& X\\
+					X \arrow[ur,"\id_X"]\arrow[dr,"0"']\arrow[r,"\iota_X"] & X \coprod Y \arrow[u,"{(\id_X,0)}"']\arrow[d,"{(0,\id_Y)}"] & Y \arrow[ul,"0"']\arrow[dl,"\id_Y"]\arrow[l,"\iota_Y"']\\
+					& Y.
+				\end{tikzcd}
+			\end{equation*}
+			Suppose $(Z,p_X,p_Y)$ is another product cone. Define $f : Z \to X \coprod Y$ by
+			\begin{equation*}
+				f := \iota_X \circ p_X + \iota_Y \circ p_Y.
+			\end{equation*}
+			Using lemma \ref{lem:zero_arrow} and \ref{lem:composition_zero}, we compute
+			\begin{align*}
+				(\id_X,0) \circ f &= (\id_X,0) \circ \iota_X \circ p_X + (\id_X,0) \circ \iota_Y \circ p_Y\\
+				&= \id_X \circ p_X + 0 \circ p_Y\\
+				&= p_X + 0\\
+				&= p_X,
+			\end{align*}
+			\noindent and simiarly $(0,\id_Y) \circ f = p_Y$. Now we have to check uniqueness. This is the hardest part of the proof and involves the \emph{Yoneda embedding} $\mathcal{\altY} : \mathcal{C} \hookrightarrow \sbr[0]{\mathcal{C}^{\mathrm{op}},\mathsf{Set}}$. We want to show that
+			\begin{equation*}
+				\iota_X \circ (\id_X,0) + \iota_Y \circ (0,\id_Y) = \id_{X \coprod Y}.
+			\end{equation*}
+			Applying the Yoneda embedding to the category $\mathcal{C}^\mathrm{op}$, we get that it is enough to show that
+			\begin{equation*}
+				f \circ \iota_X \circ (\id_X,0) + \iota_Y \circ (0,\id_Y) = f \circ \id_{X \coprod Y}
+			\end{equation*}
+			\noindent holds for all morphisms $f \in \mathcal{C}(X\coprod Y,C)$. Let $(\alpha,\beta) : X \coprod Y \to C$ be any morphism (where $(\alpha,\beta) \circ \iota_X) = \alpha$ and $(\alpha,\beta) \circ \iota_Y = \beta$). Using the universal property of the corpoduct it is easy to show that
+			\begin{equation*}
+				(\alpha,\beta) \circ \iota_X \circ (\id_X,0) = (\alpha,0) \quad \text{and} \quad (\alpha,\beta) \circ \iota_Y \circ (0,\id_Y) = (0,\beta),
+			\end{equation*} 
+			\noindent and moreover one can show that for any other morphism $(\alpha',\beta') : X \coprod Y \to C$ we have
+			\begin{equation*}
+				(\alpha,\beta) + (\alpha',\beta') = (\alpha + \alpha',\beta + \beta').
+			\end{equation*}
+			Thus
+			\begin{equation*}
+				(\alpha,\beta) \circ \id_{X \coprod Y} = (\alpha,\beta) = (\alpha,0) + (0,\beta) =(\alpha,\beta) \circ \del[1]{\iota_X \circ (\id_X,0) + \iota_Y \circ (0,\id_Y)}.
+			\end{equation*}
+			Now if $f' : Z \to X \coprod Y$ is another morphism making the diagram commute, we have that
+			\begin{align*}
+				f - f' &= \id_{X \coprod Y} \circ (f - f')\\
+				&= \del[1]{\iota_X \circ (\id_X,0) + \iota_Y \circ (0,\id_Y)} \circ (f - f')\\
+				&= \iota_X \circ (p_X - p_X) + \iota_Y \circ (p_Y - p_Y)\\
+				&= \iota_X \circ 0 + \iota_Y \circ 0\\
+				&= 0,
+			\end{align*}
+			\noindent by lemma \ref{lem:composition_zero}.
+		\item \textit{$n$-ary case.} Induction over $n \in \omega$.
+	\end{enumerate}
+\end{proof}
+
+\begin{definition}[Additive Category]
+	An \bld{additive category} is a preadditive category which admits all finite coproducts.	
+\end{definition}
+
+\begin{remark}
+	Let $\mathcal{C}$ be an additive category. Then by proposition \ref{prop:products_and_coproducts_coincide}, $\mathcal{C}$ admits all finite products which coincide with the coproducts.
+\end{remark}
+
+\section{Abelian Categories}
+
+\begin{definition}[Kernel and Cokernel \cite{maclane:categories:1978}]
+	Let $\mathcal{C}$ be a category with a null object $0$. A \bld{kernel of a morphism $f : X \to Y$} is defined to be an equalizer of
+	\begin{equation*}
+		\begin{tikzcd}
+			X \arrow[r, shift left, "f"]\arrow[r,shift right,"0"'] & Y.
+		\end{tikzcd}
+	\end{equation*}
+	Dually, a \bld{cokernel of a morphism $f : X \to Y$} is a coequalizer of the above diagram. 
+\end{definition}
+
+\begin{lemma}
+	In $\mathsf{Grp}$, every monic is a kernel and every epic is a cokernel.
+\end{lemma}
+
+\begin{proof}
+	Let $m : G \to H$ be a monic in $\mathsf{Grp}$. Consider the fork
+	\begin{equation*}
+		\begin{tikzcd}
+			G \arrow[r,"m"] & H \arrow[r,shift left,"\pi"]\arrow[r,shift right,"0"'] & \coker m.
+		\end{tikzcd}
+	\end{equation*}
+	\noindent Then one can check that this is in fact a universal fork. Similarly, one can check that
+	\begin{equation*}
+		\begin{tikzcd}
+			\ker e \arrow[r,shift left,"\iota"]\arrow[r,shift right,"0"'] & G \arrow[r,"e"] & H
+		\end{tikzcd}
+	\end{equation*}
+	\noindent is a universal cofork for any epic $e : G \to H$ in $\mathsf{Grp}$.
+\end{proof}
+
+\begin{definition}[Abelian Category \cite{maclane:categories:1978}]
+	An \bld{abelian category} is an additive category satisfying the following additional conditions:
+	\begin{enumerate}[label = \textup{(}\alph*\textup{)}, wide = 0pt]
+		\item Every morphism admits a kernel.
+		\item Every morphism admits a cokernel.
+		\item Every monic is a kernel.
+		\item Every epic is a cokernel.
+	\end{enumerate}
+\end{definition}
+
+\begin{examples}
+	$\mathsf{AbGrp}$, $\mathsf{Vect}_K$, $_{R}\mathsf{Mod}$ and $\mathsf{Mod}_R$.	
+\end{examples}
+
+\section{Exact Sequences}
+We follow \cite[44]{freyd:abelian_categories:1964}.
+
+\begin{lemma}
+	\label{lem:exactness_at_B}
+	Given a diagram
+	\begin{equation*}
+		\begin{tikzcd}
+			A \arrow[r,"f"] & B \arrow[r,"g"] & C
+		\end{tikzcd}
+	\end{equation*}
+	\noindent in $\mathsf{AbGrp}$, we have that above sequence is exact at $B$ if and only if $g \circ f = 0$ and
+	\begin{equation*}
+		\begin{tikzcd}
+			\ker g \arrow[r,hook,"\iota"] & B \arrow[r,"\pi"] & \coker f 
+		\end{tikzcd} = 0.
+	\end{equation*}
+\end{lemma}
+
+\begin{proof}
+	Trivial.
+\end{proof}
+
+In lemma \ref{lem:exactness_at_B}, the second condition involves statements about the kernel and the cokernel in the categorical sense. Indeed, in $\mathsf{Grp}$ we have that 
+\begin{equation*}
+	\begin{tikzcd}
+		\ker g \arrow[r,hook,"\iota"] & B \arrow[r, shift left, "g"]\arrow[r,shift right,"0"'] & C
+	\end{tikzcd}
+	\qquad \text{and} \qquad
+	\begin{tikzcd}
+		A \arrow[r, shift left, "f"]\arrow[r,shift right,"0"'] & B \arrow[r,"\pi"] & \coker f
+	\end{tikzcd}
+\end{equation*}
+\noindent are an equalizer and a coequalizer, respectively. Hence
+\begin{equation*}
+	\ker g = \begin{tikzcd}
+		\ker g \arrow[r,hook,"\iota"] & B
+	\end{tikzcd} \qquad \text{and} \qquad \coker f = \begin{tikzcd}
+		B \arrow[r,"\pi"] & \coker f.
+	\end{tikzcd}
+\end{equation*}
+
+\begin{definition}[Exactness]
+	Let $\mathcal{C}$ be an abelian category. A sequence
+	\begin{equation*}
+		\begin{tikzcd}
+			X \arrow[r] & Y \arrow[r] & Z
+		\end{tikzcd}
+	\end{equation*}
+	\noindent of objects in $\mathcal{C}$ is said to be \bld{exact at $Y$}, if 
+	\begin{equation*}
+		\begin{tikzcd}
+			X \arrow[r] & Y \arrow[r] & Z 
+		\end{tikzcd} = 0 \qquad \text{and} \qquad
+		\begin{tikzcd}
+			K \arrow[r] & Y \arrow[r] & C
+		\end{tikzcd} = 0,
+	\end{equation*}
+	\noindent where
+	\begin{equation*}
+		K \to Y = \ker(Y \to Z)
+		\qquad \text{and} \qquad
+		Y \to C = \coker(X \to Y).
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[Left and Right Exactness]
+	Let $\mathcal{C}$ be an abelian category. A \bld{left exact sequence} is an exact sequence of the form
+	\begin{equation*}
+		\begin{tikzcd}
+			0 \arrow[r] & X \arrow[r] & Y \arrow[r] & Z.
+		\end{tikzcd}
+	\end{equation*}
+	Similarly, a \bld{right exact sequence} is an exact sequence
+	\begin{equation*}
+		\begin{tikzcd}
+			X \arrow[r] & Y \arrow[r] & Z \arrow[r] & 0.
+		\end{tikzcd}
+	\end{equation*}
+\end{definition}
+
+\begin{definition}[Exact Functor]
+	Let $\mathcal{C}$, $\mathcal{D}$ be abelian categories. A functor $F : \mathcal{C} \to \mathcal{D}$ is said to be a \bld{left exact functor}, if it preserves left exact sequences. Similarly, $F$ is called a \bld{right exact functor}, if it preserves right exact sequences. Finally, $F$ is called an \bld{exact functor}, if it preserves exact sequences.
+\end{definition}
+
+\begin{remark}
+	A functor between abelian categories is left exact if and only if it preserves kernels. Similarly, it is right exact if and only if it preserves cokernels. A functor between abelian categories is exact, if and only if it is both left and right exact.
+\end{remark}

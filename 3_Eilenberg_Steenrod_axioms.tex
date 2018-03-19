@@ -1,0 +1,31 @@
+\section*{The Eilenberg-Steenrod Axioms}
+
+\begin{definition}[The Eilenberg-Steenrod Axioms]\index{Eilenberg-Steenrod}
+	A \bld{homology theory} consist of two sequences $(\mathcal{H}_n)_{n \in \omega}$ and $(\delta_n)_{n \in \omega}$, where for each $n \in \omega$, $\mathcal{H}_n : \mathsf{Top}^2 \to \mathsf{AbGrp}$ is a functor and $\delta_n : \mathcal{H}_n \Rightarrow \mathcal{H}_{n - 1} \circ R$ if $n > 0$ and $\delta_0 : \mathcal{H}_0 \Rightarrow 0$ is a natural transformation, with $R : \mathsf{Top}^2 \to \mathsf{Top}^2$ defined by $R(X,A) := (A,\varnothing)$, and subject to the following axioms:
+	\begin{itemize}[wide = 0pt]
+		\item \textbf{The Exact Sequence Axiom.} Let $(X,A) \in \ob(\mathsf{Top}^2)$. Then there exists a long exact sequence
+			\begin{equation*}
+				\begin{tikzcd}[column sep=7ex]
+					\cdots \arrow[r] & \mathcal{H}_n(A) \arrow[r,"\mathcal{H}_n(\iota_A)"] & \mathcal{H}_n(X) \arrow[r,"\mathcal{H}_n(\iota_X)"] & \mathcal{H}_n(X,A) \arrow[r,"\delta_n"] & \mathcal{H}_{n - 1}(A) \arrow[r] & \cdots
+				\end{tikzcd}
+			\end{equation*}
+			\noindent where $\iota_A : (A,\varnothing) \hookrightarrow (X,\varnothing)$ and $\iota_X : (X,\varnothing) \hookrightarrow (X,A)$ denote inclusions.
+		\item \textbf{The Dimension Axiom.} Let $\ast$ be the terminal object in $\mathsf{Top}$. Then $\mathcal{H}_0(\ast) \cong \mathbb{Z}$ and $\mathcal{H}_n(\ast) = 0$ for all $n \in \omega$, $n > 0$. 
+	\end{itemize}
+\end{definition}
+
+\begin{theorem}[Baby Uniqueness Theorem]
+	Suppose $(\mathcal{H},\delta)$ and $(\mathcal{K},\varepsilon)$ satisfy the homotopy, exact sequence, excision and dimension axiom and suppose $\Phi_\bullet  : (\mathcal{H},\delta) \Rightarrow (\mathcal{K},\varepsilon)$ is a natural transformation such that $\Phi_0(\ast) : \mathcal{H}_0(\ast) \to \mathcal{K}_0(\ast)$ is an isomorphism. Then
+	\begin{equation*}
+		\Phi_n(X,X') : \mathcal{H}_n(X,X') \to \mathcal{K}_n(X,X')
+	\end{equation*}
+	\noindent is an isomorphism for all pairs $(X,X')$ consisting of a finite cell complex $X$ and a subcomplex $X'$.
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}[label = \textit{Step \arabic*:},wide = 0pt]
+		\item \textit{$X = \mathbb{S}^0$ and $X' = \varnothing$.}
+		\item \textit{$X = \mathbb{S}^k$ and $X' = \varnothing$.}
+		\item \textit{General case.}
+	\end{enumerate}
+\end{proof}

@@ -1,0 +1,188 @@
+\section*{Diagram Lemmas}
+\subsection*{The Snake Lemma}
+
+\begin{proposition}[Snake Lemma]
+	Suppose we are given a commutative diagram in $\mathsf{AbGrp}$ with exact rows:
+	\begin{equation*}
+		\begin{tikzcd}
+			& A \arrow[r,"i"]\arrow[d,"f"] & B \arrow[r,"j"]\arrow[d,"g"] & C \arrow[r]\arrow[d,"h"] & 0\\
+			0 \arrow[r] & A' \arrow[r,"i'"'] & B' \arrow[r,"j'"'] & C'
+		\end{tikzcd}
+	\end{equation*}
+	Then there exists $\delta \in \mathsf{AbGrp}(\ker h,\coker f)$ such that the sequence
+	\begin{equation}
+		\begin{tikzcd}
+			 \ker f \arrow[r] & \ker g \arrow[r] & \ker h \arrow[r,"\delta"] & \coker f \arrow[r] & \coker g \arrow[r] & \coker h
+		 \end{tikzcd}
+	\end{equation}
+	\noindent is exact.
+	\label{prop:snake_lemma}
+\end{proposition}
+
+\begin{proof}
+	Consider the augmented diagram in figure \ref{fig:snake_lemma}, where the morphisms $k$, $l$, $p$ and $q$ are induced by $i$, $j$, $i'$ and $j'$, respectively.
+	\begin{figure}[h!tb]
+		\centering
+		\begin{tikzcd}
+			& 0 \arrow[d] & 0 \arrow[d] & 0 \arrow[d]\\
+			& \ker f \arrow[d]\arrow[r,"k"] & \ker g \arrow[d]\arrow[r,"l"] & \ker h \arrow[d]\\
+			& A \arrow[r,"i"]\arrow[d,"f"] & B \arrow[r,"j"]\arrow[d,"g"] & C \arrow[r]\arrow[d,"h"] & 0\\
+			0 \arrow[r] & A' \arrow[r,"i'"']\arrow[d] & B' \arrow[r,"j'"']\arrow[d] & C' \arrow[d]\\
+			& \coker f \arrow[d]\arrow[r,"p"'] & \coker g \arrow[d]\arrow[r,"q"'] & \coker h \arrow[d]\\
+			& 0 & 0 & 0
+		\end{tikzcd}		
+		\caption{Proof of the snake lemma.}
+		\label{fig:snake_lemma}
+	\end{figure}
+
+	\begin{enumerate}[label = \textit{Step \arabic*:},wide = 0pt]
+		\item \textit{Exactness at $\ker g$.} Let $a \in \ker f$. Then $l(k(a)) = j(i(a)) = 0$ by exactness at $B$ and thus $\im k \subseteq \ker l$. Conversly, let $b \in \ker l$. Then $j(b) = 0$ and by exactness at $B$, there exists $a \in A$ such that $i(a) = b$. Moreover $0 = g(b) = g(i(a)) = i'(f(a))$ since $b \in \ker g$ and thus $f(a) = 0$ by injectivity of $i'$. Hence $\ker j \subseteq \im k$.
+		\item \textit{Exactness at $\coker g$.} Let $a' + \im f \in \coker f$. Then
+			\begin{equation*}
+				q(p(a' + \im f)) = j'(i'(a')) + \im h = \im h
+			\end{equation*}
+			\noindent by exactness at $B'$ implies $\im p \subseteq \ker q$. Conversly, let $b' + \im g \in \ker q$. Then 
+			\begin{equation*}
+				0 = q(b' + \im g) = j'(b') + \im h
+			\end{equation*}
+			\noindent and thus $j'(b') \in \im h$. Hence there exists $c \in C$, such that $j'(b') = h(c)$. Since $j$ is surjective, we find $b \in B$ such that $j(b) = c$. Therefore $j'(b') = h(j(b))$. By commutativity we get $j'(b') = j'(g(b))$ which is equivalent to $j'(b' - g(b)) = 0$. Thus $b' - g(b) \in \ker j'$ and exactness at $B'$ yields the existence of $a' \in A'$ such that $i'(a') = b' - g(b)$. Now
+			\begin{equation*}
+				p(a' + \im f) = i'(a') + \im g = b' - g(b) + \im g = b' + \im g
+			\end{equation*}
+			\noindent and thus $\ker q \subseteq \im p$.
+		\item \textit{Definition of $\delta$.} Consider the snakelike path indicated in figure \ref{fig:snakelike_path}. Let $c \in \ker h$. Since $j$ is surjective, we find $b \in B$ such that $j(b) = c$. Since $c \in \ker h$, we get that $0 = h(c) = h(j(b)) = j'(g(b))$ and thus $g(b) \in \ker j'$ which implies $g(b) \in \im i'$ by exactness at $B'$. Hence there exists $a' \in A'$ such that $i'(a') = g(b)$. Actually this $a'$ is unique since $i'$ is injective. Define $\delta : \ker h \to \coker f$ by
+			\begin{equation*}
+				\delta(c) := a' + \im f.
+			\end{equation*}
+			\begin{figure}[h!tb]
+				\centering
+				\begin{subfigure}[b]{.5\textwidth}
+					\begin{tikzcd}
+						\ker f \arrow[r,"k"] & \ker g \arrow[r,"l"] & \ker h \arrow[d]\\
+						& B \arrow[d,"g"]& C \arrow[l]\\
+						A' \arrow[d] & B' \arrow[l]\\
+						\coker f \arrow[r,"p"'] & \coker g \arrow[r,"q"'] & \coker h
+					\end{tikzcd}		
+					\caption{Snakelike path.}
+					\label{fig:snakelike_path}
+				\end{subfigure}
+				~
+				\begin{subfigure}[b]{.5\textwidth}
+					\begin{tikzcd}
+						& & c \arrow[d,mapsto]\\
+						& b \arrow[d,mapsto]& c \arrow[l,mapsto]\\
+						a' \arrow[d,mapsto] & g(b) \arrow[l,mapsto]\\
+						a' + \im f
+					\end{tikzcd}		
+					\caption{Definition of $\delta$.}
+					\label{fig:definition_delta}					
+				\end{subfigure}
+				\caption{}
+			\end{figure}
+		\item \textit{Checking that $\delta$ is a morphism of groups.} Since $j$ is only surjective, we have to show that $\delta$ is a function. So suppose we choose $b_0 \in B$ instead of $b \in B$ in figure \ref{fig:definition_delta} with $b_0 \neq b$. We want to show that $\delta(c) = a' + \im f = a_0' + \im f$, or equivalently $a' - a_0' \in \im f$. Since $c = j(b) = j(b_0)$, we have that $b - b_0 \in \ker j$. Hence by exactness at $B$ there exists $a \in A$ such that $i(a) = b - b_0$. Applying $g$ and invoking commutativity yields
+			\begin{equation*}
+				g(b) - g(b_0) = g(i(a)) = i'(f(a))
+			\end{equation*}
+			Hence $i'(a') - i'(a_0')= i'(f(a))$ and thus the injectivity of $i'$ yields $a' - a_0' = f(a)$. In the same manner one can show that $\delta$ is a morphism of groups.
+		\item \textit{Exactness at $\ker h$.} Let $b \in \ker g$. Then $\im l \subseteq \ker \delta$ immeddiately follows from figure \ref{fig:im_l_subseteq_ker_delta}. Conversly, suppose $c \in \ker \delta$. From figure \ref{fig:ker_delta_subseteq_im_l} we get that
+			\begin{equation*}
+				g(b) = i'(a') = i'(f(a)) = g(i(a))
+			\end{equation*}
+			\noindent and thus $b - i(a) \in \ker g$. So $l(b - i(a)) = j(b) - j(i(a)) = j(b) = c$ by exactness at $B$ and thus $\ker \delta \subseteq \im l$.
+			\begin{figure}[h!tb]
+				\centering
+				\begin{subfigure}[b]{.5\textwidth}
+					\begin{tikzcd}
+						& & j(b) \arrow[d,mapsto]\\
+						& b \arrow[d,mapsto]& j(b) \arrow[l,mapsto]\\
+						0 \arrow[d,mapsto] & g(b) = 0 \arrow[l,mapsto]\\
+						\im f\\
+					\end{tikzcd}		
+					\caption{$\im l \subseteq \ker \delta$.}
+					\label{fig:im_l_subseteq_ker_delta}
+				\end{subfigure}
+				~
+				\begin{subfigure}[b]{.5\textwidth}
+					\begin{tikzcd}
+						& & c \arrow[d,mapsto]\\
+						a \arrow[d,mapsto] & b \arrow[d,mapsto]& c \arrow[l,mapsto]\\
+						a' = f(a) \arrow[d,mapsto] & g(b) \arrow[l,mapsto]\\
+						a' + \im f\\
+					\end{tikzcd}		
+					\caption{$\ker \delta \subseteq \im l$.}
+					\label{fig:ker_delta_subseteq_im_l}					
+				\end{subfigure}
+				\caption{}
+			\end{figure}
+
+		\item \textit{Exactness at $\coker f$.} Suppose that $a' + \im f \in \im \delta$. Then
+			\begin{equation*}
+				p(a' + \im f) = i'(a') + \im g = g(b) + \im g = \im g 
+			\end{equation*}
+			\noindent and thus $\im \delta \subseteq \ker p$. Conversly, suppose that $a' + \im f \in \ker p$. Hence $i'(a') \in \im g$ and we find $b \in B$ such that $g(b) = i'(a')$. Consider $j(b)$. By exactness at $B'$ follows
+			\begin{equation*}
+				h(j(b)) = j'(g(b)) = j'(i'(a')) = 0
+			\end{equation*}
+			So $j(b) \in \ker h$. Moreover, by construction $\delta(j(b)) = a' + \im f$ and thus $\ker p \subseteq \im \delta$.
+	\end{enumerate}
+\end{proof}
+
+\subsection*{The Five Lemma}
+\begin{proposition}[Five Lemma]
+	Suppose we are given a commutative diagram in $\mathsf{AbGrp}$ with exact rows and columns:
+	\begin{equation*}
+		\begin{tikzcd}
+			& 0\arrow[d] & & 0\arrow[d] & 0\arrow[d]\\
+			A \arrow[d,"f"]\arrow[r,"\varphi_1"] & B \arrow[r,"\varphi_2"]\arrow[d,"g"] & C \arrow[r,"\varphi_3"]\arrow[d,"h"] & D \arrow[r,"\varphi_4"]\arrow[d,"k"] & E \arrow[d,"l"]\\
+			A' \arrow[r,"\psi_1"']\arrow[d] & B' \arrow[r,"\psi_2"']\arrow[d] & C' \arrow[r,"\psi_3"'] & D' \arrow[r,"\psi_4"']\arrow[d] & E'\\
+			0 & 0 & & 0
+		\end{tikzcd}
+	\end{equation*}
+	Then $h$ is an isomorphism.
+\end{proposition}
+
+\begin{proof} 
+	We show that $h$ is bijective.
+	\begin{enumerate}[label = \textit{Step \arabic*:}, wide = 0pt]
+		\item \textit{$h$ is injective.} See figure \ref{fig:h_injective}. Let $c \in \ker h$. Hence $h(c) = 0$ and since $\varphi_3$ is a morphism of groups, we have that $(\varphi_3 \circ h)(c) = 0$. By commutativity, $(k \circ \varphi_3)(c) = 0$ and thus since $k$ is injective, $\varphi_3(c) = 0$. Exactness at $C$ implies that there exists some $b \in B$ such that $\varphi_2(b) = c$. Moreover, by commutativity $\psi_2(g(b)) = 0$ and thus we find $a' \in A'$ such that $\psi_1(a') = g(b)$. Sujectivity of $f$ implies the existence of $a \in A$ such that $f(a) = a'$. Commutativity yields $g(b) = g(\varphi_1(a))$ and thus $b - \varphi_1(a) \in \ker g$. Since $g$ is injective, $b = \varphi_1(a)$ and thus $c = \varphi_2(\varphi_1(a)) = 0$.  
+			\begin{figure}[h!tb]
+				\centering
+				\begin{tikzcd}
+					a \arrow[d,mapsto]\arrow[r,mapsto] & b = \varphi_1(a) \arrow[r,mapsto]\arrow[d,mapsto] & c \arrow[r,mapsto]\arrow[d,mapsto] & 0 \arrow[d,mapsto]\\
+					a' \arrow[r,mapsto] & g(b) \arrow[r,mapsto] & h(c) = 0 \arrow[r,mapsto] & 0
+				\end{tikzcd}
+				\caption{Proof of injectivity of $h$.}
+				\label{fig:h_injective}
+			\end{figure}
+
+		\item \textit{$h$ is surjective.} See figure \ref{fig:h_surjective}. Let $c' \in C'$. Since $k$ is surjective, we find $d \in D$ such that $k(d) = \psi_3(c')$. Hence exactness at $D'$ together with commutativity yields $(l \circ \varphi_4)(d) = 0$. Since $l$ is injective, we get that $\varphi_4(d) = 0$. Thus by exactness at $D$ we find $c \in C$ such that $\varphi_3(c) = d$. Hence by commutativity, $(\psi_3 \circ h)(c) = \psi_3(c')$ or equivalently, $c' - h(c) \in \ker \psi_3$. By exactness at $C'$ we find $b' \in B'$ such that $\psi_2(b') = c' - h(c)$. Moreover, since $g$ is surjective, we find $b \in B$ such that $g(b) = b'$. Finally, commutativity yields $(h \circ \varphi_2)(b) = c' - h(c)$ or equivalently $c' = h(c + \varphi_2(b))$.
+			\begin{figure}[h!tb]
+				\centering
+				\begin{tikzcd}
+					c \arrow[r,mapsto] & d \arrow[r,mapsto]\arrow[d,mapsto] & 0 \arrow[d,mapsto]\\
+					c' \arrow[r,mapsto] & \psi_3(c') \arrow[r,mapsto] & 0
+				\end{tikzcd}
+				\caption{Proof of surjectivity of $h$.}
+				\label{fig:h_surjective}
+			\end{figure}
+	\end{enumerate}
+\end{proof}
+
+\subsection*{The Barratt-Whitehead Lemma}
+
+\begin{proposition}[Barratt-Whitehead]
+	Suppose we are given a commutative diagram with exact rows in $\mathsf{AbGrp}$:
+	\begin{equation*}
+		\begin{tikzcd}
+			\dots \arrow[r] & A_n \arrow[r,"i_n"]\arrow[d,"f_n"] & B_n \arrow[r,"j_n"]\arrow[d,"g_n"] & C_n \arrow[r,"k_n"]\arrow[d,"h_n"] & A_{n - 1} \arrow[r]\arrow[d,"f_{n - 1}"] & \dots\\
+			\dots \arrow[r] & A'_n \arrow[r,"i'_n"'] & B'_n \arrow[r,"j'_n"'] & C'_n \arrow[r,"k'_n"'] & A'_{n - 1} \arrow[r] & \dots
+		\end{tikzcd} 
+	\end{equation*}
+	\noindent where each $h_n$ is an isomorphism. Then there exists a long exact sequence
+	\begin{equation*}
+		\begin{tikzcd}[column sep=9ex]
+			\dots \arrow[r] & A_n \arrow[r,"{(i_n,f_n)}"] & B_n \oplus A_n' \arrow[r,"g_n - i_n'"] & B_n' \arrow[r,"k_nh_n^{-1}j_n'"] & A_{n - 1} \arrow[r] & \dots.
+		\end{tikzcd}
+	\end{equation*}
+\end{proposition}
+
