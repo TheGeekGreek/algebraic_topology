@@ -1,1 +1,60 @@
 \section*{The Acyclic Models Theorem}
+
+\begin{definition}[Models]
+	Let $\mathcal{C}$ be a category. A \bld{family of models for $\mathcal{C}$} is a set $A$ together with a family $(M_\alpha)_{\alpha \in A}$ of objects in $\mathcal{C}$.
+\end{definition}
+
+\begin{definition}[$F$-Model]
+	Let $\mathcal{C}$ be a category with family of models $(M_\alpha)_{\alpha \in A}$ and $F : \mathcal{C} \to {_{R}\mathsf{Mod}}$ a functor. A \bld{model for $F$} is a family $(x_\alpha)_{\alpha \in A}$ where $x_\alpha \in F(M_\alpha)$ for all $\alpha \in A$.
+\end{definition}
+
+\begin{definition}[$F$-Model Basis]
+	Let $\mathcal{C}$ be a locally small category with family of models $(M_\alpha)_{\alpha \in A}$ and $F : \mathcal{C} \to {_{R}\mathsf{Mod}}$ a functor. $F$ is called \bld{free with basis in $(M_\alpha)_{\alpha \in A}$}, if for all $X \in \ob(\mathcal{C})$ there exists an $F$-model $(x_\alpha)_{\alpha \in A}$ such that
+	\begin{equation*}
+		\cbr[0]{F(f)(x_\alpha) : \alpha \in A, f \in \mathcal{C}(M_\alpha,X)}
+	\end{equation*}
+	\noindent is a basis for $F(X)$. The model $(x_\alpha)_{\alpha \in A}$ for $F$ is then called a \bld{model basis for $F$}.
+\end{definition}
+
+\begin{example}
+	Let $n \in \omega$. Then the one-element family $(\Delta^n)$ consisting of the standard $n$-simplex is a family of models for $\mathsf{Top}$. Moreover, let $C_n : \mathsf{Top} \to \mathsf{AbGrp}$ be the functor which assigns to each topological space $X$ the $n$-th singular chain group $C_n(X)$. Then $C_n$ is free with basis $(\id_{\Delta^n})$. Indeed, we have that
+\begin{equation*}
+	F\del[0]{\cbr[0]{C_n(\sigma)(\id_{\Delta^n}) : \sigma \in \mathsf{Top}(\Delta^n,X)}} = F\del[0]{\cbr[0]{\sigma : \sigma \in \mathsf{Top}(\Delta^n,X)}} = C_n(X).
+\end{equation*}
+\end{example}
+
+\begin{proposition}
+	Let $\mathcal{C}$ be a category with a family of models $(M_\alpha)_{\alpha \in A}$. Moreover, suppose that 
+	\begin{equation*}
+		\begin{tikzcd}
+			F \arrow[r,"\xi",Rightarrow] & F' \arrow[r,"\xi'",Rightarrow]\arrow[d,Rightarrow] & F''\arrow[d,Rightarrow]\\
+			G \arrow[r,"\eta"',Rightarrow] & G' \arrow[r,"\eta'"',Rightarrow] & G''
+		\end{tikzcd}
+	\end{equation*}
+	\noindent in $_{R}\mathsf{Mod}^\mathcal{C}$, such that
+	\begin{enumerate}[label = \textup{(}\alph*\textup{)},wide=0pt]
+		\item For all $X \in \ob(\mathcal{C})$, we have that $(\xi' \circ \xi)_X = 0$.
+		\item For all $\alpha \in A$, we have that $\im \eta_M = \ker \eta'_M$.
+		\item The diagram commutes for every $X \in \ob(\mathcal{C})$.
+		\item $F$ is free with basis in $(M_\alpha)_{\alpha \in A}$.
+	\end{enumerate}
+	Then there exists $\zeta \in \mor(_{R}\mathsf{Mod}^\mathcal{C})$ such that 
+	\begin{equation*}
+		\begin{tikzcd}
+			F \arrow[r,"\xi",Rightarrow]\arrow[d,"\zeta"',Rightarrow] & F' \arrow[r,"\xi'",Rightarrow]\arrow[d,Rightarrow] & F''\arrow[d,Rightarrow]\\
+			G \arrow[r,"\eta"',Rightarrow] & G' \arrow[r,"\eta'"',Rightarrow] & G''
+		\end{tikzcd}
+	\end{equation*}
+	\noindent commutes for every $X \in \ob(\mathcal{C})$.	
+\end{proposition}
+
+\begin{theorem}[Acyclic Models Theorem]
+	Let $\mathcal{C}$ be a locally small category with family of models $(M_\alpha)_{\alpha \in A}$ and $F,G : \mathcal{C} \to \Ch(_{R}\mathsf{Mod})$ functors such that:
+	\begin{itemize}[wide=0pt]
+		\item $F(X)$ and $G(X)$ are non-negative chain complexes for all $X \in \ob(\mathcal{C})$.
+		\item For all $n \in \omega$, the induced functor $F_n : \mathcal{C} \to {_{R}\mathsf{Mod}}$ is free with basis a subfamily of $(M_\alpha)_{\alpha \in A}$.
+		\item For all $\alpha \in A$, $G(M_\alpha)$ is acyclic in positive degrees.
+	\end{itemize}
+	If $\xi : H_0 \circ F \Rightarrow H_0 \circ G$ is a natural transformation, then there exists a natural chain map $F \Rightarrow G$ over $\xi$. Moreover, any two such natural chain maps are naturally chain homotopic.
+	\label{thm:amt}
+\end{theorem}

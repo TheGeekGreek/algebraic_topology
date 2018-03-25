@@ -1,0 +1,30 @@
+\section*{Comparison Theorem}
+\subsection*{Resolutions}
+
+\begin{definition}[Projective Module]
+	A module $P \in \ob(_{R}\mathsf{Mod})$ is said to be \bld{projective}, if there is a diagram in $_{R}\mathsf{Mod}$ with exact rows: 
+	\begin{equation*}
+		\begin{tikzcd}
+			& P \arrow[d,"\forall"]\arrow[dl,dashed,"\exists"']\\
+			M \arrow[r,"\forall"'] & N \arrow[r] & 0
+		\end{tikzcd}
+	\end{equation*}
+\end{definition}
+
+\begin{proposition}
+	Every free module is projective.
+	\label{prop:free_is_projective}
+\end{proposition}
+
+\begin{exercise}
+	Prove proposition \ref{prop:free_is_projective}.
+\end{exercise}
+
+\begin{definition}[Projective Resolution]
+	Let $A \in \ob(_{R}\mathsf{Mod})$. A \bld{projective resolution of $A$} is an exact sequence 
+	\begin{equation*}
+		\begin{tikzcd}
+			\dots \arrow[r] & P_n \arrow[r] & P_{n - 1} \arrow[r] & \dots \arrow[r] & P_0 \arrow[r,"\varepsilon"] & A \arrow[r] & 0 
+		\end{tikzcd}
+	\end{equation*}
+\end{definition}

@@ -1,4 +1,9 @@
 \chapter{Cohomology}
-\section*{The Hom-Functor}
 
-
+The archetypical example of a cohomology theory arieses in differential topology: The \emph{de Rham cohomology}. It is the homology of the non-negative cochain complex 
+\begin{equation*}
+	\begin{tikzcd}
+		0 \arrow[r] & \Omega^0(M) \arrow[r,"d^0"] & \Omega^1(M) \arrow[r,"d^1"] & \dots
+	\end{tikzcd}
+\end{equation*}
+\noindent where $M$ is a smooth manifold, $\Omega^k(M) := \Gamma(\Lambda^k T^\vee M)$ denotes the vector space of \emph{smooth differential $k$-forms} and $d : \Omega^k(M) \to \Omega^{k + 1}(M)$ denotes the \emph{exterior differentiation operators}. These extend the notion of a differential of a function and hence provide a more intuitive approach to cohomology than the mere algebraic one. For more on this topic, see for example \cite{lee:smooth_manifolds:2013}. 
