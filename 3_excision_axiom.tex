@@ -315,6 +315,39 @@
 	\noindent where $D : H_n(X) \to H_{n - 1}(U \cap V)$.
 \end{theorem}
 
+\begin{definition}[Retract]
+	Let $(X,S) \in \ob(\mathsf{Top}^2)$. We say that \bld{$S$ is a retract of $X$},  iff the inclusion $\iota : S \hookrightarrow X$ admits a retraction in $\mathsf{Top}$.
+\end{definition}
+
+\begin{definition}[Deformation Retract]
+	Let $(X,S) \in \ob(\mathsf{Top}^2)$. We say that \bld{$S$ is a deformation retract of $X$}, iff $S$ is a retract of $X$ such that $\iota \circ r \simeq \id_X$ holds, where $r$ denotes the retraction of the inclusion $\iota : S \hookrightarrow X$.
+\end{definition}
+
+\begin{definition}[Strong Deformation Retract]
+	Let $(X,S) \in \ob(\mathsf{Top}^2)$. We say that \bld{$S$ is a strong deformation retract of $X$}, iff $S$ is a deformation retract of $X$ such that $\iota \circ r \simeq_S \id_X$.
+\end{definition}
+
+\begin{example}
+	\label{ex:strong_deformation_retract_spheres}
+	Let $n \in \omega$, $n \geq 1$. Define $N := e_{n + 1}$ and $S := -e_{n + 1}$, where $e_{n + 1}$ denotes the $n + 1$-th standard basis vector of $\mathbb{R}^{n + 1}$. Moreover, set
+	\begin{equation*}
+		U_+ := \mathbb{S}^n \setminus S \qquad \text{and} \qquad U_- := \mathbb{S}^n \setminus N.
+	\end{equation*}
+	Then $U_+$ and $U_-$ are open subsets of $\mathbb{S}^n$, the extended upper and lower hemisphere, respectively. We claim that \emph{$\mathbb{S}^{n - 1}$ is a strong deformation retract of $U_+ \cap U_-$}, where we include $\mathbb{S}^{n - 1}$ into $U_+ \cap U_-$ via $\iota : \mathbb{S}^{n - 1} \hookrightarrow U_+ \cap U_-$ defined by
+	\begin{equation*}
+		\iota(x) := (x,0).
+	\end{equation*}
+	Define $r : U_+ \cap U_- \to \mathbb{S}^{n - 1}$ by setting
+	\begin{equation*}
+		r(x) := \frac{1}{\sqrt{1 - x_{n + 1}^2}} (x_1,\dots,x_n).
+	\end{equation*}
+	Then it is easy to see that $r \circ \iota = \id_{\mathbb{S}^{n - 1}}$. Consider $H : (U_+ \cap U_-) \times I \to U_+ \cap U_-$ defined by
+	\begin{equation*}
+		H(x,t) := \frac{1}{\sqrt{1 + (t^2 - 1)x_{n + 1}^2}}(x_1,\dots,x_n,tx_{n + 1}).
+	\end{equation*}
+	Then it is also not hard to check that $H : \iota \circ r \simeq_{\mathbb{S}^{n - 1}} \id_{U_+ \cap U_-}$. 
+\end{example}
+
 \begin{proposition}[Homology of Spheres]
 	For $n \in \omega$, we have
 	\begin{equation*}
