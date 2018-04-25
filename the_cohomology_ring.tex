@@ -1,0 +1,38 @@
+\section*{The Cohomology Ring}
+\subsection*{The Cup Product}
+
+\begin{proposition}
+	Let $X \in \ob(\mathsf{Top})$ and $R \in \ob(\mathsf{Ring})$. Then there exists a contravariant functor
+	\begin{equation*}
+		C(-;R) : \mathsf{Top} \to \mathsf{GRing}.
+	\end{equation*}
+\end{proposition}
+
+\begin{proof}
+	~
+	\begin{enumerate}[label = \textit{Step \arabic*:},wide = 0pt]
+		\item \textit{Definition on objects.} Let $X \in \mathsf{Top}$. For $\alpha \in C^n(X;R)$
+			and $\beta \in C^m(X;R)$ define
+			\begin{equation*}
+				(\alpha \cupprod \beta)(\sigma) := \alpha(\sigma \circ A(e_0,\dots,e_n)) \beta(\sigma \circ A(e_n,\dots,e_{n + m})),
+			\end{equation*}
+			\noindent for all singular $n + m$-simplices $\sigma$ in $X$. Hence extending by linearity yields a map
+			\begin{equation*}
+				\cupprod : C^n(X;R) \times C^m(X;R) \to C^{n + m}(X;R).
+			\end{equation*}
+			Moreover, if 
+			\begin{equation*}
+				C(X;R) := \bigoplus_{n \in \omega } C^n(X;R),
+			\end{equation*}
+			\noindent we define $\cupprod : C(X;R) \times C(X;R) \to C(X;R)$ by
+			\begin{equation*}
+				\sum_i \alpha_i \cupprod \sum_j \beta_j := \sum_{i,j} \alpha_i \cupprod \beta_j.
+			\end{equation*}
+			This is called the \bld{cup product on $C(X;R)$}. It is easily verified that $(C(X;R),\cupprod) \in \mathsf{GRing}$.
+		\item \textit{Definition on morphisms.} Let $n \in \omega$ and $f \in \mathsf{Top}(X,Y)$. For $\alpha \in C^n(Y;R)$ define
+			\begin{equation*}
+				C(f;R)(\alpha) := C^n(f)(\alpha) \in C^n(X;R),
+			\end{equation*}
+			\noindent and extend by linearity.
+	\end{enumerate}
+\end{proof}

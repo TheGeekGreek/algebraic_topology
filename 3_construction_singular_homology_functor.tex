@@ -2,6 +2,77 @@
 
 Aim of this section is to construct for each $n \in \omega$ a functor $H_n : \mathsf{Top} \to \mathsf{AbGrp}$, called the \textit{$n$-th singular homology functor}.
 
+\subsection*{Simplices and Affinely Linear Mappings}
+
+\begin{definition}[Affinely Independent]
+	Let $n \in \omega$ and $V \in {_\mathbb{R}}\mathsf{Mod}$. A family $(v_0,\dots,v_n)$ in $V$ is said to be \bld{affinely independent}, iff the following condition is satisfied: Given $\lambda_0,\dots,\lambda_n \in \mathbb{R}$ such that
+	\begin{equation*}
+		\sum_{i = 0}^n \lambda_i = 0 \qquad \text{and} \qquad \sum_{i = 0}^n \lambda_i v_i = 0
+	\end{equation*}
+	\noindent implies $c_0 = \dots = c_n = 0$.
+\end{definition}
+
+\begin{lemma}
+	\label{lem:affinely_independent}
+	Let $n \in \omega$ and $V \in {_\mathbb{R}}\mathsf{Mod}$. Then a family $(v_0,\dots,v_n)$ in $V$ is affinely independent if and only if $(v_1 - v_0,\dots,v_n - v_0)$ is linearly independent in $V$.
+\end{lemma}
+
+\begin{exercise}
+	\label{ex:affinely_independent}
+	Prove lemma \ref{lem:affinely_independent}.
+\end{exercise}
+
+Recall, that any vector space in $_{\mathbb{R}}\mathsf{Mod}$ can be given the structure of an inner product space and hence of a normed space. Moreover, any two norms on a finite dimensional real vector space are equivalent and thus generate the same topology.
+
+\begin{definition}[Simplex]
+	Let $n\in \omega$, $V \in {_\mathbb{R}}\mathsf{Mod}$ finite dimensional and $(v_0,\dots,v_n)$ affinely independent in $V$. Define the \bld{simplex spanned by $(v_0,\dots,v_n)$}, written $[v_0,\dots,v_n]$, to be the topological subspace 
+	\begin{equation*}
+		[v_0,\dots,v_n] := \cbr[4]{\sum_{i = 0}^n \lambda_i v_i : \lambda_i \in \mathbb{R}_{\geq 0} \> \text{and} \> \sum_{i = 0}^n \lambda_i = 1} \subseteq V.
+	\end{equation*}
+\end{definition}
+
+\begin{lemma}
+	\label{lem:barycentric_coordinates}
+	Let $n \in \omega$, $V \in {_\mathbb{R}}\mathsf{Vect}$ finite dimensional and $[v_0,\dots,v_n]$ a simplex in $V$. Then any $x \in [v_0,\dots,v_n]$ admits a unique representation $x = \sum_{i = 0}^n \lambda_i v_i$.
+\end{lemma}
+
+\begin{exercise}
+	Prove lemma \ref{lem:barycentric_coordinates}.
+\end{exercise}
+
+\begin{definition}[Affinely Linear Mapping]
+	Let $V,W \in {_\mathbb{R}}\mathsf{Mod}$. A mapping $A : V \to W$ is said to be \bld{affinely linear}, iff there exists a morphism $L \in \Hom_\mathbb{R}(V,W)$ and $w \in W$, such that 
+	\begin{equation*}
+		A(v) = L(v) + w
+	\end{equation*}
+	\noindent holds for all $v \in V$.
+\end{definition}
+
+\begin{exercise}
+	\label{ex:affinely_linear}
+	Show that the composition of affinely linear mappings is again affinely linear.
+\end{exercise}
+
+\begin{proposition}
+	Let $n \in \omega$, $V,W \in {_\mathbb{R}}\mathsf{Mod}$, $V$ finite dimensional and $\sigma := [v_0,\dots,v_n]$ a simplex in $V$. Given a function $f : \cbr{v_0,\dots,v_n} \to W$, there exists a unique extension $\wtilde{f} : \sigma \to W$, which is the restriction of an affinely linear map $V \to W$.
+\end{proposition}
+
+\begin{proof}
+	We show first existence and then uniqueness.
+	\begin{enumerate}[label = \textit{Step \arabic*:},wide=0pt]
+		\item \textit{Existence.} By exercise \ref{ex:affinely_independent}, $(v_1 - v_0,\dots, v_n - v_0)$ is linearly independent in $V$. Since $V$ is finite dimensional, we may complete this linearly independent subset to a basis of $V$. Hence there exists a unique vector space morphism $L : V \to W$, mapping 
+			\begin{equation*}
+				v_i - v_0 \mapsto f(v_i) - f(v_0),
+			\end{equation*}
+			\noindent and to the zero vector else. Now $A : V \to W$ defined by $A := L - L(v_0) + f(v_0)$ is the map we are looking for.
+		\item \textit{Uniqueness.} Given another such extension $\wtilde{g} : \sigma \to W$ of $f$, say $\wtilde{g} = \wtilde{L} + w$, we have that $\wtilde{L}(v_i) = f(v_i) - w$ for all $i = 0,\dots,n$. Thus we compute 
+			\begin{equation*}
+				\wtilde{g}\del[4]{\sum_{i = 0}^n \lambda_i v_i} = \sum_{i = 0}^n \lambda_i \wtilde{L}(v_i) + w = \sum_{i = 0}^n \lambda_i f(v_i) - \sum_{i = 0}^n \lambda_i w + w = \sum_{i = 0}^n \lambda_i f(v_i).
+			\end{equation*}
+	\end{enumerate}
+\end{proof}
+
+
 \subsection*{Free Abelian Groups}
 
 \begin{proposition}
