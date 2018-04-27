@@ -2,7 +2,7 @@
 
 Aim of this section is to construct for each $n \in \omega$ a functor $H_n : \mathsf{Top} \to \mathsf{AbGrp}$, called the \textit{$n$-th singular homology functor}.
 
-\subsection*{Simplices and Affinely Linear Mappings}
+\subsection*{Singular Simplices}
 
 \begin{definition}[Affinely Independent]
 	Let $n,k \in \omega$. A family $(v_0,\dots,v_k)$ in $\mathbb{R}^n$ is said to be \bld{affinely independent}, iff the following condition is satisfied: Given $\lambda_0,\dots,\lambda_k \in \mathbb{R}$ such that
@@ -36,6 +36,7 @@ Aim of this section is to construct for each $n \in \omega$ a functor $H_n : \ma
 \end{remark}
 
 \begin{example}[Standard Simplex]
+	\label{ex:standard_simplex}
 	Let $n \in \omega$. Then the family $(e_0,\dots,e_n)$ in $\mathbb{R}^n$, where $e_0 := 0$ and $(e_1,\dots,e_n)$ is the standard oriented basis of $\mathbb{R}^n$, is affinely independent by exercise \ref{ex:affinely_independent}. The $n$-simplex spanned by this family is called the \bld{standard $n$-simplex} and is denoted by $\Delta^n$.
 	\begin{figure}[h!tb]
 		\centering
@@ -92,12 +93,17 @@ Aim of this section is to construct for each $n \in \omega$ a functor $H_n : \ma
 \end{exercise}
 
 \begin{definition}[Affinely Linear Mapping]
-	Let $n,m in \omega$. A mapping $A : \mathbb{R}^n \to \mathbb{R}^m$ is said to be \bld{affinely linear}, iff there exists an $\mathbb{R}$-linear vector space morphism $L : \mathbb{R}^n \to \mathbb{R}^m$ and $y \in \mathbb{R}^m$, such that 
+	Let $n,m \in \omega$. A mapping $A : \mathbb{R}^n \to \mathbb{R}^m$ is said to be \bld{affinely linear}, iff there exists an $\mathbb{R}$-linear vector space morphism $L : \mathbb{R}^n \to \mathbb{R}^m$ and $y \in \mathbb{R}^m$, such that 
 	\begin{equation*}
 		A(x) = L(x) + y
 	\end{equation*}
 	\noindent holds for all $x \in \mathbb{R}^n$.
 \end{definition}
+
+\begin{exercise}
+	\label{ex:continuity_affine_map}
+	Show that any affinely linear mapping is continuous with respect to the standard Euclidean topologies.
+\end{exercise}
 
 \begin{exercise}
 	\label{ex:affinely_linear}
@@ -128,6 +134,43 @@ Aim of this section is to construct for each $n \in \omega$ a functor $H_n : \ma
 	\end{enumerate}
 \end{proof}
 
+\begin{definition}[Singular Simplex]
+	Let $n \in \omega$ and $X \in \mathsf{Top}$. An element of $\mathsf{Top}(\Delta^n,X)$ is called a \bld{singular $n$-simplex in $X$}.
+\end{definition}
+
+\begin{example}[Affine Singular Simplex]
+	Let $n,m \in \omega$ and let $\Delta^n$ denote the standard $n$-simplex of example \ref{ex:standard_simplex}. Given any $v_0,\dots,v_n \in \mathbb{R}^m$, define $A(v_0,\dots,v_n): \Delta^n \to \mathbb{R}^m$ by the vertex map $e_i \mapsto v_i$ for $i = 0,\dots,n$ (see proposition \ref{prop:affine_map_induced_by_vertex_map}). By exercise \ref{ex:continuity_affine_map}, $A(v_0,\dots,v_n)$ is continuous and thus a singular $n$-simplex, called an \bld{affine singular $n$-simplex}. 
+\end{example}
+
+\begin{example}[Face Map]
+	Let $n \in \omega$, $n \geq 1$, and let $\Delta^n$ denote the standard $n$-simplex of example \ref{ex:standard_simplex}. For $k \in \omega$, $0 \leq k \leq n$, define a singular simplex $\varphi^n_k : \Delta^{n - 1} \to \Delta^n$, called the \bld{$k$-th face map in dimension $n$}, by
+	\begin{equation*}
+		\varphi^n_k := A(e_0,\dots,\what{e_k},\dots,e_n).	
+	\end{equation*}
+	This map is indeed well-defined as the uniqueness part of the proof of proposition \ref{prop:affine_map_induced_by_vertex_map} shows.
+	\begin{figure}[h!tb]
+		\centering
+		\begin{tikzpicture}[scale = 4]
+    		% Draw axes
+			\draw (-.25,1) -- (1,1);
+			\draw (0,1) -- (0,2);
+			\fill[fill=gray!50] (0,1)--(.75,1)--(0,1.75);
+			\draw [thick,->] (0,1) -- (.375,1);
+			\draw [thick,->] (0,1) -- (0,1.375);
+			\draw [thick,->] (.75,1) -- (.375,1.375);
+			\draw [thick] (0,1) -- (.75,1);
+			\draw [thick] (0,1) -- (0,1.75);
+			\draw [thick] (.75,1) -- (0,1.75);
+			\draw[fill] (0,1) circle [radius=.5pt] node[below left]{$e_0$};
+			\draw[fill] (.75,1) circle [radius=.5pt] node[below right]{$e_1$};
+			\draw[fill] (0,1.75) circle [radius=.5pt] node[above left]{$e_2$};
+			\node at (.375,1) [below] {$\varphi^2_2$};
+			\node at (.375,1.375) [above right] {$\varphi^2_0$};
+			\node at (0,1.375) [left] {$\varphi^2_1$};
+		\end{tikzpicture}
+		\caption{Face maps for $n = 2$.}
+	\end{figure}
+\end{example}
 
 \subsection*{Free Abelian Groups}
 
