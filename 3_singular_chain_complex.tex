@@ -1,0 +1,91 @@
+\subsection*{The Singular Chain Complex}
+
+\begin{proposition}
+	\label{prop:free_module_functor}
+	Let $R \in \mathsf{Ring}$. Then the forgetful functor $U : {_R}\mathsf{Mod} \to \mathsf{Set}$ admits a left adjoint.
+\end{proposition}
+
+\begin{proof}
+	Consider the \bld{free module functor} $F: \mathsf{Set} \to {_R}\mathsf{Mod}$ defined as follows:
+	\begin{enumerate}[label = \textit{Step \arabic*:},wide = 0pt]
+		\item \textit{Definition on objects.} Let $S \in \mathsf{Set}$ and define 
+			\begin{equation*}
+				F(S) := \cbr[1]{f \in R^S : \supp f \text{ is finite}}.
+			\end{equation*}
+			Equipped with pointwise defined addition and multiplication, $F(S)$ is a left $R$-module. Moreover, there is an inclusion $\iota : S \hookrightarrow U(F(S))$ sending $x \in S$ to the function taking the value one at $x$ and zero else. It is easy to check that $F(S)$ is free on $S$.
+		\item \textit{Definition on morphisms.} Let $f : S \to S'$ in $\mathsf{Set}$, define $F(f) : F(S) \to F(S')$ by setting 
+			\begin{equation*}
+				F(f)\del[4]{\sum_{x \in S}r_x x} := \sum_{x \in S}r_x f(x).
+			\end{equation*}
+		\item $F \dashv U$. Let $M \in {_R}\mathsf{Mod}$ and $\varphi \in {_R}\mathsf{Mod}(F(S), M)$. Define $\wbar{\varphi} \in {_R}\mathsf{Mod}(S,U(M))$ to be the restriction to $S$ of the underlying map of sets. Conversly, if $f \in \mathsf{Set}(S,U(G))$, \bld{extending by linearity} yields $\wbar{f} \in {_R}\mathsf{Mod}(F(S),M)$ given by
+		\begin{equation*}
+			\wbar{f}\del[4]{\sum_{x \in S} m_x x} := \sum_{x \in S} m_x f(x).
+		\end{equation*}
+		It is now easy to check that $\wbar{\wbar{\varphi}} = \varphi$ and $\wbar{\wbar{f}} = f$ holds. 
+	\end{enumerate}	
+\end{proof}
+
+\begin{exercise}
+	In the proof of proposition \ref{prop:free_module_functor}, check functoriality of $F$ and naturality of the bijection ${_R}\mathsf{Mod}(F(S),M) \cong \mathsf{Set}(S,U(M))$.
+\end{exercise}
+
+\begin{theorem}[Singular Chain Complex Functor]
+	\label{thm:singular_chain_complex_functor}
+	Let $R \in \mathsf{Ring}$. Then there exists a functor 
+	\begin{equation*}
+		C_\bullet : \mathsf{Top} \to \Ch_{\geq 0}({_R}\mathsf{Mod}).
+	\end{equation*}
+\end{theorem}
+
+\begin{proof}
+	\begin{enumerate}[label = \textit{Step \arabic*:},wide = 0pt]
+		\item \textit{Definition on objects.} Let $X \in \mathsf{Top}$. Then define 
+			\begin{equation*}
+				C_\bullet(X)_n := F(\mathsf{Top}(\Delta^n,X))
+			\end{equation*}
+			\noindent for all $n \in \omega$, where $F : \mathsf{Set} \to {_R}\mathsf{Mod}$ denotes the free module functor from proposition \ref{prop:free_module_functor} and $\Delta^n$ denotes the $n$-th standard simplex from example \ref{ex:standard_simplex}.\\
+			Let $\sigma \in \mathsf{Top}(\Delta^n,X)$, $n \geq 1$. Define
+			\begin{equation}
+				\label{eq:boundary_map}
+				\partial_n \sigma := \sum_{k = 0}^n (-1)^k \sigma \circ \varphi^n_k,
+			\end{equation}
+			\noindent where $\varphi^n_k$ denotes the $k$-th face map in dimension $n$ from example \ref{ex:face_map}. Extending by linearity yields a morphism of $R$-modules $\partial_n : C_\bullet(X)_n \to C_\bullet(X)_{n - 1}$. For any $\sigma \in \mathsf{Top}(\Delta^{n + 1},X)$ we compute
+			\begin{align*}
+				(\partial_n \circ \partial_{n + 1})(\sigma) &= \partial_n \del[4]{\sum_{k = 0}^{n + 1} (-1)^k \sigma \circ \varphi^{n + 1}_k}\\
+				&= \sum_{k = 0}^{n + 1} (-1)^k \partial_n\del[1]{\sigma \circ \varphi^{n + 1}_k}\\
+				&= \sum_{k = 0}^{n + 1}\sum_{j = 0}^n (-1)^{k + j} \sigma \circ \varphi^{n + 1}_k \circ \varphi^n_j\\
+				&= \sum_{0 \leq k \leq j \leq n}(-1)^{k + j} \sigma \circ \varphi^{n + 1}_k \circ \varphi^n_j + \sum_{0 \leq j < k \leq n + 1}(-1)^{k + j} \sigma \circ \varphi^{n + 1}_k \circ \varphi^n_j\\
+				&= \sum_{0 \leq j \leq k \leq n}(-1)^{k + j} \sigma \circ \varphi^{n + 1}_j \circ \varphi^n_k + \sum_{0 \leq j <k \leq n + 1}(-1)^{k + j} \sigma \circ \varphi^{n + 1}_k \circ \varphi^n_j\\
+				&= \sum_{0 \leq j < k \leq n + 1}\del[1]{(-1)^{k + j - 1} \sigma \circ \varphi^{n + 1}_j \circ \varphi^n_{k - 1} + (-1)^{k + j} \sigma \circ \varphi^{n + 1}_k \circ \varphi^n_j}
+			\end{align*}
+			Since $\varphi_j^{n + 1} \circ \varphi_{k - 1}^n$ and $\varphi_k^{n + 1} \circ \varphi_j^n$ are both equal to $A(e_0,\dots,\what{e_j},\dots,\what{e_k},\dots,e_{n + 1})$, it follows that
+			\begin{equation*}
+				\partial_n \circ \partial_{n + 1} = 0.
+			\end{equation*}
+			Indeed, consider the following chart of vertex maps:
+			\begin{equation*}
+				\begin{matrix}
+					& \varphi_{k - 1}^n & & \varphi_j^{n + 1}\\
+					e_0 & \mapsto & e_0 & \mapsto & e_0\\
+					\vdots & & \vdots & & \vdots\\
+					e_j & \mapsto & e_j & \mapsto & e_{j + 1}\\
+					\vdots & & \vdots & & \vdots\\
+					e_{k - 1} & \mapsto & e_k & \mapsto & e_{k + 1}\\
+					\vdots & & \vdots & & \vdots\\
+					e_{n - 1} & \mapsto & e_n & \mapsto & e_{n + 1}
+				\end{matrix}
+				\qquad\qquad\qquad
+				\begin{matrix}
+					& \varphi_j^n & & \varphi_k^{n + 1}\\
+					e_0 & \mapsto & e_0 & \mapsto & e_0\\
+					\vdots & & \vdots & & \vdots\\
+					e_j & \mapsto & e_{j + 1} & \mapsto & e_{j + 1}\\
+					\vdots & & \vdots & & \vdots\\
+					e_{k - 1} & \mapsto & e_k & \mapsto & e_{k + 1}\\
+					\vdots & & \vdots & & \vdots\\
+					e_{n - 1} & \mapsto & e_n & \mapsto & e_{n + 1}
+				\end{matrix}.
+			\end{equation*}
+		\item \textit{Definition on morphisms.}
+	\end{enumerate}
+\end{proof}
