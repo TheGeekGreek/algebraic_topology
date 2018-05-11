@@ -19,7 +19,7 @@
 			\end{equation*}
 		\item $F \dashv U$. Let $M \in {_R}\mathsf{Mod}$ and $\varphi \in {_R}\mathsf{Mod}(F(S), M)$. Define $\wbar{\varphi} \in {_R}\mathsf{Mod}(S,U(M))$ to be the restriction to $S$ of the underlying map of sets. Conversly, if $f \in \mathsf{Set}(S,U(G))$, \bld{extending by linearity} yields $\wbar{f} \in {_R}\mathsf{Mod}(F(S),M)$ given by
 		\begin{equation*}
-			\wbar{f}\del[4]{\sum_{x \in S} m_x x} := \sum_{x \in S} m_x f(x).
+			\wbar{f}\del[4]{\sum_{x \in S} r_x x} := \sum_{x \in S} r_x f(x).
 		\end{equation*}
 		It is now easy to check that $\wbar{\wbar{\varphi}} = \varphi$ and $\wbar{\wbar{f}} = f$ holds. 
 	\end{enumerate}	
@@ -38,6 +38,7 @@
 \end{theorem}
 
 \begin{proof}
+	The proof is divided into two steps.
 	\begin{enumerate}[label = \textit{Step \arabic*:},wide = 0pt]
 		\item \textit{Definition on objects.} Let $X \in \mathsf{Top}$. Then define 
 			\begin{equation*}
@@ -86,6 +87,31 @@
 					e_{n - 1} & \mapsto & e_n & \mapsto & e_{n + 1}
 				\end{matrix}.
 			\end{equation*}
-		\item \textit{Definition on morphisms.}
+		\item \textit{Definition on morphisms.} Let $f : X \to Y$ be a morphism in $\mathsf{Top}$. For $n \in \omega$, define $C_\bullet(f)_n : C_\bullet(X)_n \to C_\bullet(Y)_n$ by
+			\begin{equation*}
+				C_\bullet(f)_n(\sigma) := f \circ \sigma,
+			\end{equation*}
+			\noindent for any $\sigma \in \mathsf{Top}(\Delta^n,X)$. We compute 
+			\begin{equation*}
+				(\partial_n \circ C_\bullet(f)_n)(\sigma) = \sum_{k = 0}^n (-1)^k f \circ \sigma \circ \varphi^n_k = (C_\bullet(f)_{n - 1}\circ \partial_n)(\sigma).
+			\end{equation*}
+			\noindent Thus $C_\bullet(f)$ is a morphism in $\Ch_{\geq 0}({_R}\mathsf{Mod})$.
 	\end{enumerate}
+	Checking functoriality is left as an exercise.
+\end{proof}
+
+\begin{exercise}
+	Check that $C_\bullet : \mathsf{Top} \to \Ch_{\geq 0}({_R}\mathsf{Mod})$ defined in theorem \ref{thm:singular_chain_complex_functor} is indeed a functor.
+\end{exercise}
+
+\begin{theorem}[Relative Singular Chain Complex Functor]
+	\label{thm:relative_singular_chain_complex_functor}
+	Let $R \in \mathsf{Ring}$. Then there exists a functor 
+	\begin{equation*}
+		C_\bullet : \mathsf{Top}^2 \to \Ch_{\geq 0}({_R}\mathsf{Mod}).
+	\end{equation*}
+\end{theorem}
+
+\begin{proof}
+	
 \end{proof}

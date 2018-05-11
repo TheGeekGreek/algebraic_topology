@@ -1,0 +1,21 @@
+\subsection*{The Singular Homology Functor}
+
+\begin{proposition}
+	\label{prop:tensor_chain_complex_fixed_module}
+	Let $R \in \mathsf{CRing}$ and $M \in {_R}\mathsf{Mod}$. Then there exists an additive functor 
+	\begin{equation*}
+		(-)\otimes_R M : \Ch({_R}\mathsf{Mod}) \to \Ch({_R}\mathsf{Mod}).
+	\end{equation*}
+\end{proposition}
+
+\begin{proof}
+	
+\end{proof}
+
+\begin{definition}[Singular Homology Functor]
+	Let $R \in \mathsf{CRing}$ and $M \in {_R}\mathsf{Mod}$. For $n \in \mathbb{Z}$, define the \bld{$n$-th singular homology functor} to be the composition
+	\begin{equation}
+		H_n \circ (-) \otimes_R M \circ C_\bullet : \mathsf{Top}^2 \to {_R}\mathsf{Mod},
+	\end{equation}
+	\noindent where $C_\bullet : \mathsf{Top}^2 \to \Ch_{\geq 0}({_R}\mathsf{Mod})$ denotes the relative singular chain complex functor defined in theorem \ref{thm:relative_singular_chain_complex_functor}, $(-) \otimes_R M : \Ch({_R}\mathsf{Mod}) \to \Ch({_R}\mathsf{Mod})$ denotes the functor defined in proposition \ref{prop:tensor_chain_complex_fixed_module} and $H_n : \Ch({_R}\mathsf{Mod}) \to {_R}\mathsf{Mod}$ denotes the usual $n$-th homology functor.
+\end{definition}
