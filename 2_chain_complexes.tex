@@ -1,17 +1,14 @@
 \section*{Chain Complexes}
 
 \begin{definition}[Chain Complex]
-	Let $\mathcal{A}$ be an abelian category. A \bld{$\mathbb{Z}$-graded chain complex in $\mathcal{A}$} is a tuple $\del[0]{(C_n)_{n \in \mathbb{Z}},(\partial_n)_{n \in \mathbb{Z}}}$, consisting of a sequence $(C_n)_{n \in \mathbb{Z}}$ in $\ob(\mathcal{A})$ and a sequence $(\partial_n)_{n \in \mathbb{Z}}$ in $\mor(\mathcal{A})$, such that 
+	Let $R \in \mathsf{Ring}$. A \bld{$\mathbb{Z}$-graded chain complex in $_{R}\mathsf{Mod}$} is defined to be a tuple $(C_\bullet,\partial_\bullet)$, consisting of an infinite sequence
 	\begin{equation*}
-		\partial_n \in \mathcal{A}(C_n,C_{n - 1}) \qquad \text{and} \qquad \partial_n \circ \partial_{n + 1} = 0
+		\begin{tikzcd}
+			\dots \arrow[r] & C_{n + 1} \arrow[r,"\partial_{n + 1}"] & C_n \arrow[r,"\partial_n"] & C_{n - 1} \arrow[r] & \dots
+		\end{tikzcd}
 	\end{equation*}
-	\noindent for all $n \in \mathbb{Z}$.\\
-	Dually, a \bld{$\mathbb{Z}$-graded cochain complex in $\mathcal{A}$} is a $\mathbb{Z}$-graded chain complex in $\mathcal{A}^\mathrm{op}$. 
+	\noindent in $_{R}\mathsf{Mod}$ such that $\partial_n\circ \partial_{n + 1} = 0$ holds for all $n \in \mathbb{Z}$.
 \end{definition}
-
-\begin{remark}
-	Since we consider $\mathbb{Z}$-graded chain complexes only, we will just refer to them as chain complexes. Moreover, a chain complex $\del[0]{(C_n)_{n \in \mathbb{Z}},(\partial_n)_{n \in \mathbb{Z}}}$ will often be denoted by $(C_\bullet,\partial_\bullet)$ or even $(C_\bullet,\partial)$, for the sake of notational simplicity. To distinguish cochain complexes from chain complexes, we will use the notation $(C^\bullet,d^\bullet)$ or $(C^\bullet,d)$ for cochain complexes. However, without further restrictions, the two notions coincide. Indeed, if $(C^\bullet,d^\bullet)$ is a cochain complex, then $(C_\bullet,\partial_\bullet)$ defined by $C_n := C^{-n}$ and $\partial_n := d^{-n + 1}$ for all $n \in \mathbb{Z}$ is a chain complex and vice versa. Thus chain and cochain complexes differ by a \emph{sign change of the $\mathbb{Z}$-grading}. 
-\end{remark}
 
 \begin{definition}[Chain Maps]
 	Let $\mathcal{A}$ be an abelian category and $(C_\bullet,\partial_\bullet)$, $(C'_\bullet,\partial'_\bullet)$ chain complexes in $\mathcal{A}$. A \bld{chain map $f_\bullet : C_\bullet \to C'_\bullet$} is a sequence $(f_n)_{n \in \mathbb{Z}}$ in $\mor(\mathcal{A})$ such that $f_n \in \mathcal{A}(C_n,C'_n)$ and the diagram

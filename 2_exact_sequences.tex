@@ -1,22 +1,83 @@
-\section*{Diagram Lemmas}
-\subsection*{The Snake Lemma}
+\section*{Exact Sequences}
+
+\begin{definition}[Exact Sequence]
+	Let $R \in \mathsf{Ring}$. A finite or infinite sequence
+	\begin{equation*}
+		\begin{tikzcd}[column sep = 3em]
+			\dots \arrow[r] & M_{n + 1} \arrow[r,"\varphi_{n + 1}"] & M_n \arrow[r,"\varphi_n"] & M_{n - 1} \arrow[r] & \dots 
+		\end{tikzcd}
+	\end{equation*}
+	\noindent in $_{R}\mathsf{Mod}$ is said to be \bld{exact}, iff $\im \varphi_{n + 1} = \ker \varphi_n$ for all valid choices of $n$. 
+\end{definition}
+
+\begin{examples}
+	The following are some particular kinds of exact sequences.
+	\begin{enumerate}[label = \textup{(}\alph*\textup{)},wide = 0pt]
+		\item $0 \to A \overset{\varphi}{\to} B$ is exact if and only if $\varphi$ is injective.
+		\item $A \overset{\varphi}{\to} B \to 0$ is exact if and only if $\varphi$ is surjective.
+		\item $0 \to A \overset{\varphi}{\to} B \to 0$ is exact if and only if $\varphi$ is an isomorphism.
+	\end{enumerate}
+\end{examples}
+
+\subsection*{Diagram Lemmas}
+Exact sequences lend themselves to a method of proof, \emph{diagram chasing}, in which elements are ``chased'' around commutative diagrams.
+
+\begin{proposition}[Five Lemma]
+	Let $R \in \mathsf{Ring}$. Suppose we are given a commutative diagram in $_{R}\mathsf{Mod}$ with exact rows and columns:
+	\begin{equation*}
+		\begin{tikzcd}
+			& 0\arrow[d] & & 0\arrow[d] & 0\arrow[d]\\
+			A \arrow[d,"f"]\arrow[r,"\varphi_1"] & B \arrow[r,"\varphi_2"]\arrow[d,"g"] & C \arrow[r,"\varphi_3"]\arrow[d,"h"] & D \arrow[r,"\varphi_4"]\arrow[d,"k"] & E \arrow[d,"l"]\\
+			A' \arrow[r,"\psi_1"']\arrow[d] & B' \arrow[r,"\psi_2"']\arrow[d] & C' \arrow[r,"\psi_3"'] & D' \arrow[r,"\psi_4"']\arrow[d] & E'\\
+			0 & 0 & & 0
+		\end{tikzcd}
+	\end{equation*}
+	Then $h$ is an isomorphism.
+\end{proposition}
+
+\begin{proof} 
+	We show that $h$ is bijective.
+	\begin{enumerate}[label = \textit{Step \arabic*:}, wide = 0pt]
+		\item \textit{$h$ is injective.} See figure \ref{fig:h_injective}. Let $c \in \ker h$. Hence $h(c) = 0$ and since $\varphi_3$ is a morphism of groups, we have that $(\varphi_3 \circ h)(c) = 0$. By commutativity, $(k \circ \varphi_3)(c) = 0$ and thus since $k$ is injective, $\varphi_3(c) = 0$. Exactness at $C$ implies that there exists some $b \in B$ such that $\varphi_2(b) = c$. Moreover, by commutativity $\psi_2(g(b)) = 0$ and thus we find $a' \in A'$ such that $\psi_1(a') = g(b)$. Sujectivity of $f$ implies the existence of $a \in A$ such that $f(a) = a'$. Commutativity yields $g(b) = g(\varphi_1(a))$ and thus $b - \varphi_1(a) \in \ker g$. Since $g$ is injective, $b = \varphi_1(a)$ and thus $c = \varphi_2(\varphi_1(a)) = 0$.  
+			\begin{figure}[h!tb]
+				\centering
+				\begin{tikzcd}
+					a \arrow[d,mapsto]\arrow[r,mapsto] & b = \varphi_1(a) \arrow[r,mapsto]\arrow[d,mapsto] & c \arrow[r,mapsto]\arrow[d,mapsto] & 0 \arrow[d,mapsto]\\
+					a' \arrow[r,mapsto] & g(b) \arrow[r,mapsto] & h(c) = 0 \arrow[r,mapsto] & 0
+				\end{tikzcd}
+				\caption{Proof of injectivity of $h$.}
+				\label{fig:h_injective}
+			\end{figure}
+
+		\item \textit{$h$ is surjective.} See figure \ref{fig:h_surjective}. Let $c' \in C'$. Since $k$ is surjective, we find $d \in D$ such that $k(d) = \psi_3(c')$. Hence exactness at $D'$ together with commutativity yields $(l \circ \varphi_4)(d) = 0$. Since $l$ is injective, we get that $\varphi_4(d) = 0$. Thus by exactness at $D$ we find $c \in C$ such that $\varphi_3(c) = d$. Hence by commutativity, $(\psi_3 \circ h)(c) = \psi_3(c')$ or equivalently, $c' - h(c) \in \ker \psi_3$. By exactness at $C'$ we find $b' \in B'$ such that $\psi_2(b') = c' - h(c)$. Moreover, since $g$ is surjective, we find $b \in B$ such that $g(b) = b'$. Finally, commutativity yields $(h \circ \varphi_2)(b) = c' - h(c)$ or equivalently $c' = h(c + \varphi_2(b))$.
+			\begin{figure}[h!tb]
+				\centering
+				\begin{tikzcd}
+					c \arrow[r,mapsto] & d \arrow[r,mapsto]\arrow[d,mapsto] & 0 \arrow[d,mapsto]\\
+					c' \arrow[r,mapsto] & \psi_3(c') \arrow[r,mapsto] & 0
+				\end{tikzcd}
+				\caption{Proof of surjectivity of $h$.}
+				\label{fig:h_surjective}
+			\end{figure}
+	\end{enumerate}
+\end{proof}
 
 \begin{proposition}[Snake Lemma]
-	Suppose we are given a commutative diagram in $\mathsf{AbGrp}$ with exact rows:
+	\label{prop:snake_lemma}
+	Let $R \in \mathsf{Ring}$. Suppose we are given a commutative diagram in $_{R}\mathsf{Mod}$ with exact rows:
 	\begin{equation*}
 		\begin{tikzcd}
 			& A \arrow[r,"i"]\arrow[d,"f"] & B \arrow[r,"j"]\arrow[d,"g"] & C \arrow[r]\arrow[d,"h"] & 0\\
 			0 \arrow[r] & A' \arrow[r,"i'"'] & B' \arrow[r,"j'"'] & C'
 		\end{tikzcd}
 	\end{equation*}
-	Then there exists $\delta \in \mathsf{AbGrp}(\ker h,\coker f)$ such that the sequence
+	Then there exists $\delta \in \Hom_R(\ker h,\coker f)$ such that the sequence
 	\begin{equation}
-		\begin{tikzcd}
+		\begin{tikzcd}[column sep = 2em]
 			 \ker f \arrow[r] & \ker g \arrow[r] & \ker h \arrow[r,"\delta"] & \coker f \arrow[r] & \coker g \arrow[r] & \coker h
 		 \end{tikzcd}
 	\end{equation}
 	\noindent is exact.
-	\label{prop:snake_lemma}
 \end{proposition}
 
 \begin{proof}
@@ -126,63 +187,3 @@
 			So $j(b) \in \ker h$. Moreover, by construction $\delta(j(b)) = a' + \im f$ and thus $\ker p \subseteq \im \delta$.
 	\end{enumerate}
 \end{proof}
-
-\subsection*{The Five Lemma}
-\begin{proposition}[Five Lemma]
-	Suppose we are given a commutative diagram in $\mathsf{AbGrp}$ with exact rows and columns:
-	\begin{equation*}
-		\begin{tikzcd}
-			& 0\arrow[d] & & 0\arrow[d] & 0\arrow[d]\\
-			A \arrow[d,"f"]\arrow[r,"\varphi_1"] & B \arrow[r,"\varphi_2"]\arrow[d,"g"] & C \arrow[r,"\varphi_3"]\arrow[d,"h"] & D \arrow[r,"\varphi_4"]\arrow[d,"k"] & E \arrow[d,"l"]\\
-			A' \arrow[r,"\psi_1"']\arrow[d] & B' \arrow[r,"\psi_2"']\arrow[d] & C' \arrow[r,"\psi_3"'] & D' \arrow[r,"\psi_4"']\arrow[d] & E'\\
-			0 & 0 & & 0
-		\end{tikzcd}
-	\end{equation*}
-	Then $h$ is an isomorphism.
-\end{proposition}
-
-\begin{proof} 
-	We show that $h$ is bijective.
-	\begin{enumerate}[label = \textit{Step \arabic*:}, wide = 0pt]
-		\item \textit{$h$ is injective.} See figure \ref{fig:h_injective}. Let $c \in \ker h$. Hence $h(c) = 0$ and since $\varphi_3$ is a morphism of groups, we have that $(\varphi_3 \circ h)(c) = 0$. By commutativity, $(k \circ \varphi_3)(c) = 0$ and thus since $k$ is injective, $\varphi_3(c) = 0$. Exactness at $C$ implies that there exists some $b \in B$ such that $\varphi_2(b) = c$. Moreover, by commutativity $\psi_2(g(b)) = 0$ and thus we find $a' \in A'$ such that $\psi_1(a') = g(b)$. Sujectivity of $f$ implies the existence of $a \in A$ such that $f(a) = a'$. Commutativity yields $g(b) = g(\varphi_1(a))$ and thus $b - \varphi_1(a) \in \ker g$. Since $g$ is injective, $b = \varphi_1(a)$ and thus $c = \varphi_2(\varphi_1(a)) = 0$.  
-			\begin{figure}[h!tb]
-				\centering
-				\begin{tikzcd}
-					a \arrow[d,mapsto]\arrow[r,mapsto] & b = \varphi_1(a) \arrow[r,mapsto]\arrow[d,mapsto] & c \arrow[r,mapsto]\arrow[d,mapsto] & 0 \arrow[d,mapsto]\\
-					a' \arrow[r,mapsto] & g(b) \arrow[r,mapsto] & h(c) = 0 \arrow[r,mapsto] & 0
-				\end{tikzcd}
-				\caption{Proof of injectivity of $h$.}
-				\label{fig:h_injective}
-			\end{figure}
-
-		\item \textit{$h$ is surjective.} See figure \ref{fig:h_surjective}. Let $c' \in C'$. Since $k$ is surjective, we find $d \in D$ such that $k(d) = \psi_3(c')$. Hence exactness at $D'$ together with commutativity yields $(l \circ \varphi_4)(d) = 0$. Since $l$ is injective, we get that $\varphi_4(d) = 0$. Thus by exactness at $D$ we find $c \in C$ such that $\varphi_3(c) = d$. Hence by commutativity, $(\psi_3 \circ h)(c) = \psi_3(c')$ or equivalently, $c' - h(c) \in \ker \psi_3$. By exactness at $C'$ we find $b' \in B'$ such that $\psi_2(b') = c' - h(c)$. Moreover, since $g$ is surjective, we find $b \in B$ such that $g(b) = b'$. Finally, commutativity yields $(h \circ \varphi_2)(b) = c' - h(c)$ or equivalently $c' = h(c + \varphi_2(b))$.
-			\begin{figure}[h!tb]
-				\centering
-				\begin{tikzcd}
-					c \arrow[r,mapsto] & d \arrow[r,mapsto]\arrow[d,mapsto] & 0 \arrow[d,mapsto]\\
-					c' \arrow[r,mapsto] & \psi_3(c') \arrow[r,mapsto] & 0
-				\end{tikzcd}
-				\caption{Proof of surjectivity of $h$.}
-				\label{fig:h_surjective}
-			\end{figure}
-	\end{enumerate}
-\end{proof}
-
-\subsection*{The Barratt-Whitehead Lemma}
-
-\begin{proposition}[Barratt-Whitehead]
-	Suppose we are given a commutative diagram with exact rows in $\mathsf{AbGrp}$:
-	\begin{equation*}
-		\begin{tikzcd}
-			\dots \arrow[r] & A_n \arrow[r,"i_n"]\arrow[d,"f_n"] & B_n \arrow[r,"j_n"]\arrow[d,"g_n"] & C_n \arrow[r,"k_n"]\arrow[d,"h_n"] & A_{n - 1} \arrow[r]\arrow[d,"f_{n - 1}"] & \dots\\
-			\dots \arrow[r] & A'_n \arrow[r,"i'_n"'] & B'_n \arrow[r,"j'_n"'] & C'_n \arrow[r,"k'_n"'] & A'_{n - 1} \arrow[r] & \dots
-		\end{tikzcd} 
-	\end{equation*}
-	\noindent where each $h_n$ is an isomorphism. Then there exists a long exact sequence
-	\begin{equation*}
-		\begin{tikzcd}[column sep=9ex]
-			\dots \arrow[r] & A_n \arrow[r,"{(i_n,f_n)}"] & B_n \oplus A_n' \arrow[r,"g_n - i_n'"] & B_n' \arrow[r,"k_nh_n^{-1}j_n'"] & A_{n - 1} \arrow[r] & \dots.
-		\end{tikzcd}
-	\end{equation*}
-\end{proposition}
-

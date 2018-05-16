@@ -1,0 +1,34 @@
+\section*{Tor and Ext}
+\subsection*{Projective Resolutions}
+
+\begin{definition}[Projective Module]
+	Let $R \in \mathsf{Ring}$. A module $P \in {_R}\mathsf{Mod}$ is said to be \bld{projective}, iff any diagram
+	\begin{equation*}
+		\begin{tikzcd}
+			& P \arrow[d,"\varphi"]\arrow[dl,dashed,"\psi"']\\
+			M \arrow[r,"\rho"'] & N \arrow[r] & 0
+		\end{tikzcd}
+	\end{equation*}
+	\noindent in $_R\mathsf{Mod}$ with exact rows can be lifted.
+\end{definition}
+
+\begin{exercise}
+	Show that every free module is projective.
+\end{exercise}
+
+\begin{definition}[Projective Resolution]
+	Let $R \in \mathsf{Ring}$ and $A \in {_R}\mathsf{Mod}$. A \bld{projective resolution of $A$}, written $\mathcal{P}\overset{\varepsilon}{\to} A$, is a projective chain complex $\mathcal{P} \in \Ch_{\geq 0}({_R}\mathsf{Mod})$ acyclic in positive degrees together with an epimorphism $\varepsilon : P_0 \to A$ such that $\ker \varepsilon = \im \partial_1$. 
+\end{definition}
+
+\begin{theorem}[Comparison Theorem]
+	\label{thm:comparison_theorem}
+	Let $R \in \mathsf{Ring}$ and $A,B \in {_R}\mathsf{Mod}$. Suppose that $\mathcal{P} \overset{\varepsilon}{\to} A$ and $\mathcal{Q} \overset{\eta}{\to} B$ are projective resolutions and $\varphi : A \to B$ is a morphism of $R$-modules. Then there exists a chain map $\varphi_\bullet : \mathcal{P} \to \mathcal{Q}$ such that 
+	\begin{equation*}
+		\eta\varphi_0 = \varphi\varepsilon.
+	\end{equation*}
+	Moreover, any two such chain maps are chain homotopic.
+\end{theorem}
+
+\begin{proof}
+	
+\end{proof}

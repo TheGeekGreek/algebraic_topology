@@ -1,0 +1,87 @@
+\section*{The Universal Coefficient Theorem}
+
+\begin{theorem}[Universal Coefficient Theorem for Homology]
+	Let $(C_\bullet,\partial_\bullet) \in \Ch({_\mathbb{Z}}\mathsf{Mod})$ be free and $A \in {_\mathbb{Z}}\mathsf{Mod}$. Then for every $n \in \mathbb{Z}$ there exists a noncanonically split exact sequence
+	\begin{equation*}
+		\begin{tikzcd}[column sep = 2em]
+			0 \arrow[r] & H_n(C_\bullet) \otimes_\mathbb{Z} A \arrow[r] & H_n(C_\bullet \otimes_\mathbb{Z} A) \arrow[r] & \Tor^\mathbb{Z}_1(H_{n - 1}(C_\bullet),A) \arrow[r] & 0.
+		\end{tikzcd}
+	\end{equation*}
+\end{theorem}
+
+\begin{proof}
+	For each $n \in \mathbb{Z}$, we have a short exact sequence
+	\begin{equation*}
+		\begin{tikzcd}
+			0 \arrow[r] & Z_n \arrow[r,hookrightarrow] & C_n \arrow[r] & \partial_n C_n \arrow[r] & 0.
+		\end{tikzcd}
+	\end{equation*}
+	Since any subgroup of a free abelian groups is again free abelian, $\Tor^\mathbb{Z}_1(\partial_nC_n,A) = 0$. Hence the long exact Tor-sequence yields a short exact sequence
+	\begin{equation*}
+		\begin{tikzcd}[column sep = 2em]
+			0 \arrow[r] & Z_n \otimes_\mathbb{Z} A \arrow[r,hookrightarrow] & C_n \otimes_\mathbb{Z} A \arrow[r] & \partial_nC_n \otimes_\mathbb{Z} A \arrow[r] & 0
+		\end{tikzcd}
+	\end{equation*}
+	\noindent which assemble in a short exact sequence
+	\begin{equation*}
+		\begin{tikzcd}[column sep = 2em]
+			0 \arrow[r] & Z_\bullet \otimes_\mathbb{Z} A \arrow[r,hookrightarrow] & C_\bullet \otimes_\mathbb{Z} A \arrow[r] & \partial_\bullet C_\bullet \otimes_\mathbb{Z} A \arrow[r] & 0
+		\end{tikzcd}	
+	\end{equation*}
+	\noindent in $_\mathbb{Z}\mathsf{Mod}$. Applying the long exact sequence in homology yields
+	\begin{equation*}
+		\begin{tikzcd}[column sep = 2em]
+			\dots \arrow[r] & H_{n + 1}(\partial_\bullet C_\bullet \otimes_\mathbb{Z} A) \arrow[r,"\delta_{n + 1}"] & H_n(Z_\bullet \otimes_\mathbb{Z} A) \arrow[d,phantom, ""{coordinate, name=Z}]\arrow[r] & H_n(C_\bullet \otimes_\mathbb{Z} A) \arrow[dll,rounded corners,
+				to path=
+				{ -- ([xshift=2ex]\tikztostart.east)
+				|- (Z) [near end]\tikztonodes
+				-| ([xshift=-2ex]\tikztotarget.west)
+				-- (\tikztotarget)}
+			] \\
+			& H_n(\partial_\bullet C_\bullet \otimes_\mathbb{Z} A) \arrow[r, "\delta_n"] & H_{n - 1}(Z_\bullet \otimes_\mathbb{Z} A) \arrow[r] & \dots
+		\end{tikzcd}
+	\end{equation*}
+	\noindent or after a short computation
+	\begin{equation*}
+		\begin{tikzcd}[column sep = 2em]
+			\dots \arrow[r] & \partial_{n + 1}C_{n + 1} \otimes_\mathbb{Z} A \arrow[r,"\delta_{n + 1}"] & Z_n \otimes_\mathbb{Z} A \arrow[d,phantom, ""{coordinate, name=Z}]\arrow[r] & H_n(C_\bullet \otimes_\mathbb{Z} A) \arrow[dll,rounded corners,
+				to path=
+				{ -- ([xshift=2ex]\tikztostart.east)
+				|- (Z) [near end]\tikztonodes
+				-| ([xshift=-2ex]\tikztotarget.west)
+				-- (\tikztotarget)}
+			] \\
+			& \partial_n C_n \otimes_\mathbb{Z} A \arrow[r, "\delta_n"] & Z_{n - 1} \otimes_\mathbb{Z} A \arrow[r] & \dots
+		\end{tikzcd}
+	\end{equation*}
+	Moreover it is easily seen that
+	\begin{equation*}
+		\begin{tikzcd}[column sep = 3em]
+			\dots \arrow[r] & \partial_{n + 1}C_{n + 1} \otimes_\mathbb{Z} A \arrow[r,"\iota_{n + 1} \otimes \id_A"] & Z_n \otimes_\mathbb{Z} A \arrow[d,phantom, ""{coordinate, name=Z}]\arrow[r] & H_n(C_\bullet \otimes_\mathbb{Z} A) \arrow[dll,rounded corners,
+				to path=
+				{ -- ([xshift=2ex]\tikztostart.east)
+				|- (Z) [near end]\tikztonodes
+				-| ([xshift=-2ex]\tikztotarget.west)
+				-- (\tikztotarget)}
+			] \\
+			& \partial_n C_n \otimes_\mathbb{Z} A \arrow[r,"\iota_n \otimes \id_A"] & Z_{n - 1} \otimes_\mathbb{Z} A \arrow[r] & \dots
+		\end{tikzcd}
+	\end{equation*}
+	Problem \ref{prob:2.17} thus yields a short exact sequence
+	\begin{equation*}
+		\begin{tikzcd}
+			0 \arrow[r] & \coker(\iota_{n + 1} \otimes \id_A) \arrow[r] & H_n(C_\bullet \otimes_\mathbb{Z} A) \arrow[r] & \ker(\iota_n \otimes \id_A) \arrow[r] & 0. 
+		\end{tikzcd}
+	\end{equation*}
+	Now
+	\begin{equation*}
+		\begin{tikzcd}
+			0 \arrow[r] & \partial_{n + 1}C_{n + 1} \arrow[r,"\iota_{n + 1}"] & Z_n \arrow[r] & H_n(C_\bullet) \arrow[r] & 0 
+		\end{tikzcd}
+	\end{equation*}
+	\noindent is a projective resolution of $H_n(C_\bullet)$ and a short computation therefore yields
+	\begin{equation*}
+		\Tor^\mathbb{Z}_0(H_n(C_\bullet),A) = \coker(\iota_{n + 1} \otimes \id_A) \quad \text{and} \quad \Tor^\mathbb{Z}_1(H_n(C_\bullet),A) = \ker(\iota_{n + 1} \otimes A).
+	\end{equation*}
+	Using $\Tor^\mathbb{Z}_0(H_n(C_\bullet),A) \cong H_n(C_\bullet) \otimes_\mathbb{Z} A$ yields the result.
+\end{proof}
