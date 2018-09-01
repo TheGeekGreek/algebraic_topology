@@ -48,12 +48,63 @@ We use the first order theory of Neumann-Bernays-G\"odel (BNG) as described in \
 	A category $\mathcal{C}$ is said to be \bld{locally small} if for all $X,Y \in \mathcal{C}$, $\mathcal{C}(X,Y)$ is a set. If $\mathcal{C}$ is locally small, $\mathcal{C}(X,Y)$ is called a \bld{hom-set} for all $X,Y \in \mathcal{C}$. 
 \end{definition}
 
+\begin{definition}[Monic]
+	Let $\mathcal{C}$ be a category. A morphism $f \in \mathcal{C}(X,Y)$ is said to be \bld{monic}, iff for all objects $A \in \mathcal{C}$ and morphisms $g,h \in \mathcal{C}(A,X)$
+	\begin{equation*}
+		f \circ g = f \circ h \Rightarrow g = h
+	\end{equation*}
+	\noindent holds.
+\end{definition}
+
+\begin{exercise}
+	In $\mathsf{Set}$, show that a morphism is monic if and only if it is injective.
+\end{exercise}
+
+\begin{definition}[Epic]
+	Let $\mathcal{C}$ be a category. A morphism $f \in \mathcal{C}(X,Y)$ is said to be \bld{epic}, iff $f$ is monic in $\mathcal{C}^\op$.
+\end{definition}
+
+\begin{exercise}
+	In $\mathsf{Set}$, show that a morphism is epic if and only if it is surjective.
+\end{exercise}
+
 \begin{definition}[Isomorphism]
-	Let $\mathcal{C}$ be a category. An \bld{isomorphism in $\mathcal{C}$} is a morphism $f : X \to Y$ in $\mathcal{C}$, such that there exists a morphism $g : Y \to X$ in $\mathcal{C}$ with 
+	\label{def:isomorphism}
+	Let $\mathcal{C}$ be a category. An \bld{isomorphism in $\mathcal{C}$} is a morphism $f \in \mathcal{C}(X,Y)$, such that there exists a morphism $g \in \mathcal{C}(Y,X)$ with 
 	\begin{equation*}
 		g \circ f = \id_X \qquad \text{and} \qquad f \circ g = \id_Y.
 	\end{equation*}
 \end{definition}
+
+\begin{exercise}
+	Let $\mathcal{C}$ be a category. Show that any isomorphism is both monic and epic.
+\end{exercise}
+
+\begin{exercise}
+	In $\mathsf{Set}$, show that any monic and epic morphism is an isomorphism.
+\end{exercise}
+
+In the definition of an isomorphism \ref{def:isomorphism}, a morphism is forced to admit a two-sided inverse. However, in reality, often only one-sided inverses do exist. Since they are particularly useful, they get they own terminology.
+
+\begin{definition}[Section]
+	Let $\mathcal{C}$ be a category and $f \in \mathcal{C}(X,Y)$. A morphism $\sigma \in \mathcal{C}(Y,X)$ is called a \bld{section of $f$}, iff $f \circ \sigma = \id_Y$.
+\end{definition}
+
+\begin{exercise}
+	Let $\mathcal{C}$ be a category. Show that any morphism admitting a section is epic.
+\end{exercise}
+
+\begin{exercise}
+	In $\mathsf{Set}$, show that any epic morphism admits a section (observe the subtle use of the axiom of choice!).
+\end{exercise}
+
+\begin{definition}[Retraction]
+	Let $\mathcal{C}$ be a category and $f \in \mathcal{C}(X,Y)$. A morphism $\rho \in \mathcal{C}(Y,X)$ is called a \bld{retraction of $f$}, iff $\rho \circ f = \id_X$.
+\end{definition}
+
+\begin{exercise}
+	Let $\mathcal{C}$ be a category. Show that any morphism admitting a retraction is monic.
+\end{exercise}
 
 In algebraic topology, there is a very useful construction on categories.
 

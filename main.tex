@@ -1,7 +1,39 @@
 \input{header.tex}
 
 \begin{document}
+%titlepage
+\pagecolor{blue}
+%\pagecolor{ao(english)}
+\color{white}
+
+\begin{titlepage}
+	\begin{center}
+	\fontsize{18}{18}{\textsc{Yannis B\"ahni}}
+	\rule{\linewidth}{0.5mm} \\[0.4cm]
+	\fontsize{90}{90}{\textsc{Algebraic Topology}}\\
+	%\vspace{2mm}
+	%\fontsize{28}{28}{\textsc{In Applications and Examples}}
+	\rule{\linewidth}{0.5mm} \\[1.5cm]
+	\end{center}
+\end{titlepage}
+%reset colors
+\nopagecolor
+\color{black} 
+
+%Roman page numbering
 \frontmatter
+
+%Half-Title Page
+\thispagestyle{empty}
+	\begin{center}
+	\fontsize{18}{18}{\textsc{Yannis B\"ahni}}
+	\rule{\linewidth}{0.5mm} \\[0.4cm]
+	\fontsize{90}{90}{\textsc{Algebraic Topology}}\\
+	%\vspace{2mm}
+	%\fontsize{28}{28}{\textsc{In Applications and Examples}}
+	\rule{\linewidth}{0.5mm} \\[1.5cm]
+\end{center}
+\clearpage
 
 \chapter*{Preface}
 The process of writing this book started in autumn of 2017. The book is mainly based on the course notes of the course \emph{Algebraic Topology I} and \emph{Algebraic Topology II} held by \emph{Will J. Merry} at \emph{ETH Zurich} in the autumn semester 2017 and spring semester 2018, I visited. They can be found here:
@@ -12,7 +44,6 @@ Also, a large inspiration was the course \emph{Introduction to Category Theory a
 
 \noindent Winterthur, \hfill Yannis B\"ahni\\
 April 28, 2018
-
 
 \tableofcontents
 
@@ -37,16 +68,6 @@ April 28, 2018
 	\input{B_basic_group_theory.tex}
 	\input{C_basic_point_set_topology.tex}
 \end{appendix}
-
-%\chapter{Set Theory}
-%\section*{Basic Concepts}
-
-%\begin{problem}
-%	Let $n \in \mathbb{N}$ and $a_{kj} \in \mathbb{C}$ for $k = 0,\dots,n + 1$, $j = 0,\dots,n$. Show that
-%	\begin{equation*}
-%		\sum_{k = 0}^{n+1}\sum_{j = 0}^n a_{kj} = \sum_{0 \leq k \leq j \leq n}a_{kj} + \sum_{0 \leq j < k \leq n+1} a_{kj}.
-%	\end{equation*}
-%\end{problem}
 
 \printbibliography
 \printindex
